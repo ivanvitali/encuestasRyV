@@ -6,12 +6,18 @@ import { MaterialModule } from './material.module';
 import { AppComponent } from './app.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
+import { SurveyComponent } from './survey/survey.component';
+import { HivSurveyComponent } from './survey/hiv-survey/hiv-survey.component';
+import { AddictionSurveyComponent } from './survey/addiction-survey/addiction-survey.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignupComponent,
-    LoginComponent
+    LoginComponent,
+    SurveyComponent,
+    HivSurveyComponent,
+    AddictionSurveyComponent
   ],
   imports: [
     BrowserModule,
