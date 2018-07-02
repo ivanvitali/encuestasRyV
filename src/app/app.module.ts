@@ -15,6 +15,8 @@ import { SurveyComponent } from './survey/survey.component';
 import { HivSurveyComponent } from './survey/hiv-survey/hiv-survey.component';
 import { AddictionSurveyComponent } from './survey/addiction-survey/addiction-survey.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { HeaderComponent } from './navigation/header/header.component';
+import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { WelcomeComponent } from './welcome/welcome.component';
     SurveyComponent,
     HivSurveyComponent,
     AddictionSurveyComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    HeaderComponent,
+    SidenavListComponent
   ],
   imports: [
     BrowserModule,

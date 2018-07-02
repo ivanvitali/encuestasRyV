@@ -1,0 +1,16 @@
+<mat-toolbar class="z-depth-1">
+    <div fxHide.gt-xs>
+      <button mat-icon-button (click)="onToggleSidenav()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+    <div><a routerLink="/">Encuestas  RyV</a></div>
+    <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
+      <ul fxLayout fxLayoutGap="10px" class="navigation-items">
+        <li><a routerLink="/signup">Registrarse</a></li>
+        <li><a routerLink="/login">Ingresar</a></li>
+        <li><a routerLink="/survey">Encuesta</a></li>
+        <li><a>Salir</a></li>
+      </ul>
+    </div>
+  </mat-toolbar>
