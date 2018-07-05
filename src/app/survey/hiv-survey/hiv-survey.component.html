@@ -1,3 +1,86 @@
-<p>
-  hiv-survey works!
-</p>
+<mat-card>
+  <mat-card-title>    
+      Encuesta de ViH
+  </mat-card-title>
+  <mat-card-subtitle>
+    Datos Generales
+  </mat-card-subtitle>
+    <mat-card-content>
+      <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" #vihSurveyForm="ngForm">
+        <div fxLayout="column" fxLayout.gt-sm="row">
+          <mat-form-field fxFlex="25">
+            <input 
+                type="email" 
+                matInput 
+                placeholder="Correo Electronico" 
+                ngModel 
+                name="email"
+                email
+                #emailInput="ngModel">
+            <mat-error *ngIf="emailInput.hasError('email')">Correo Electronico invalido</mat-error>
+          </mat-form-field>
+        
+          <section class="seccion-radio" fxFlex="50" fxLayoutAlign="center center">
+            <label class="label-margin">Sexo:</label>
+            <mat-radio-group ngModel name="sexo" required fxLayout="row">
+              <mat-radio-button class="radio-margin" value="Hombre">Masculino</mat-radio-button>
+              <mat-radio-button class="radio-margin" value="Mujer">Femenino</mat-radio-button>
+            </mat-radio-group>
+          </section>
+
+          <mat-form-field fxFlex="25">
+            <input 
+                type="number" 
+                matInput 
+                placeholder="Edad" 
+                ngModel 
+                name="edad"
+                edad
+                required
+                #ageInput="ngModel"
+                pattern="^[+]?\d{2}$">
+            <mat-error *ngIf="ageInput.hasError('required')">No debe quedar vacio</mat-error>
+            <!-- <mat-error *ngIf="ageInput.value < '10' && !pattern">Valor no debe ser negativo, ni cero</mat-error> -->
+            <mat-error *ngIf="!pattern && !ageInput.hasError('required')">Minimo 2 digitos</mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <section class="seccion-radio" fxLayout="row" fxLayoutAlign="space-evenly start">
+            <label class="label-margin" fxFlex>Estado Civil:</label>
+            <mat-radio-group ngModel name="estadoCivil" fxFlex fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="space-evenly start">
+              <mat-radio-button class="radio-margin" value="Soltero" >Soltero</mat-radio-button>
+              <mat-radio-button class="radio-margin" value="Casado" >Casado</mat-radio-button>
+              <mat-radio-button class="radio-margin" value="Viudo">Viudo</mat-radio-button>
+              <mat-radio-button class="radio-margin" value="Separado">Separado</mat-radio-button>
+              <mat-radio-button class="radio-margin" value="Pareja">Pareja</mat-radio-button>
+            </mat-radio-group>
+          </section>
+        </div>
+        <div>
+          <section class="seccion-radio" fxLayout="row" fxLayoutAlign="space-evenly start">
+            <label class="label-margin" fxFlex>Instruccion:</label>
+            <mat-radio-group ngModel name="estudio" fxFlex fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="space-evenly start">
+              <mat-radio-button class="radio-margin" value="Primario">Primario</mat-radio-button>
+              <mat-radio-button class="radio-margin" value="Secundario">Secundario</mat-radio-button>
+              <mat-radio-button class="radio-margin" value="Terciario">Terciario</mat-radio-button>
+              <mat-radio-button class="radio-margin" value="Universitario">Universitario</mat-radio-button>
+            </mat-radio-group>
+          </section>
+        </div>
+        <div>
+          <mat-form-field>
+            <input 
+                type="text" 
+                matInput 
+                placeholder="Ocupacion" 
+                ngModel 
+                name="ocupacion">
+          </mat-form-field>
+        </div>
+        <hr>
+      </form>    
+    </mat-card-content>
+  <mat-card-actions>
+    <button type="submit" mat-raised-button color="primary" (click)="onSubmit(vihSurveyForm)" [disabled]="vihSurveyForm.invalid">Guardar</button>
+  </mat-card-actions>
+</mat-card>
