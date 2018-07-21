@@ -28,12 +28,12 @@ font-family: 'Itim', cursive;
 
 .logo-box {
     position: absolute;
-    top: 30px;
-    left: 30px;
+    top: 1.85rem;
+    left: 1.85rem;
 }
 
 .logo {
-    height: 40px;
+    height: 3rem;
 }
 
 .text-box {
@@ -53,9 +53,9 @@ font-family: 'Itim', cursive;
 .heading-primary-main {
     display: block;
     font-family: 'Patua One', sans-serif;
-    font-size: 50px;
+    font-size: 3.125rem;
     font-weight: 400;
-    letter-spacing: 35px;
+    letter-spacing: 2.18rem;
 
     animation: moveInLeft 1s ease-out;
 }
@@ -63,20 +63,20 @@ font-family: 'Itim', cursive;
 .heading-primary-sub {
     display: block;
     font-family: 'Itim', cursive, sans-serif;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 400;
-    letter-spacing: 54.5px;
+    letter-spacing: 3.4rem;
     animation: moveInRight 1s ease-out;
 }
 
 @keyframes moveInLeft {
     0% {
         opacity: 0;
-        transform: translateX(-100px);
+        transform: translateX(-6.25rem);
     }
 
     80% {
-        transform: translateX(10px);
+        transform: translateX(.625rem);
     }
 
     100% {
@@ -88,11 +88,11 @@ font-family: 'Itim', cursive;
 @keyframes moveInRight {
     0% {
         opacity: 0;
-        transform: translateX(100px);
+        transform: translateX(6.25rem);
     }
 
     80% {
-        transform: translateX(-10px);
+        transform: translateX(-.625rem);
     }
 
     100% {
