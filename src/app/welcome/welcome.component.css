@@ -34,6 +34,8 @@ font-family: 'Itim', cursive;
 
 .logo {
     height: 3rem;
+    animation: moveInUp 1s ease-out .75s;
+    animation-fill-mode: backwards;
 }
 
 .text-box {
@@ -100,6 +102,23 @@ font-family: 'Itim', cursive;
         transform: translate(0);
     }
 }
+
+@keyframes moveInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(-6.25rem);
+    }
+
+    80% {
+        transform: translateY(.625rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
 .welcome {
     text-align: center;
 }
