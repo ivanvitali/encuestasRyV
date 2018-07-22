@@ -1,29 +1,33 @@
-<section>
-  <form
-    fxLayout="column"
-    fxLayoutAlign="center center"
-    fxLayoutGap="10px"
-    [formGroup]="loginForm"
-    (ngSubmit)="onSubmit()">
-    <mat-form-field>
-      <input
-        type="email"
-        matInput
-        placeholder="Correo Electronico"
-        formControlName="email"
-        required>
-      <mat-hint>Ingrese un correo valido</mat-hint>
-      <mat-error>Correo invalido o faltante</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input
-        type="password"
-        matInput
-        placeholder="Contraseña"
-        formControlName="password">
-      <mat-hint>Ingrese su contraseña.</mat-hint>
-      <mat-error>Minimo 6 characteres</mat-error>
-    </mat-form-field>
-    <button type="submit" mat-raised-button color="primary" [disabled]="loginForm.invalid">Ingresar</button>
-  </form>
+<section class="login-form">
+  <div class="up-line">
+    <mat-card>
+      <form
+        fxLayout="column"
+        fxLayoutAlign="center center"
+        fxLayoutGap="10px"
+        [formGroup]="loginForm"
+        (ngSubmit)="onSubmit()">
+        <mat-form-field>
+          <input
+            type="email"
+            matInput
+            placeholder="Correo Electronico"
+            formControlName="email"
+            required>
+          <mat-hint>Ingrese un correo valido</mat-hint>
+          <mat-error>Correo invalido o faltante</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            type="password"
+            matInput
+            placeholder="Contraseña"
+            formControlName="password">
+          <mat-hint>Ingrese su contraseña.</mat-hint>
+          <mat-error>Minimo 6 characteres</mat-error>
+        </mat-form-field>
+        <button type="submit" mat-raised-button color="primary" [disabled]="loginForm.invalid">Ingresar</button>
+      </form>
+    </mat-card>
+  </div>
 </section>

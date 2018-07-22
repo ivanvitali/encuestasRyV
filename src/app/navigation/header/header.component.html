@@ -4,8 +4,10 @@
         <mat-icon>menu</mat-icon>
       </button>
     </div>
-    <div><a routerLink="/">Encuestas  RyV</a></div>
-    <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
+    <div class="header-logo">
+      <a routerLink="/">Encuestas  Rock&amp;Vida</a>
+    </div>
+    <div class="header-nav" fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
       <ul fxLayout fxLayoutGap="10px" class="navigation-items">
         <li *ngIf="!isAuth">
           <a routerLink="/signup">Registrarse</a>
