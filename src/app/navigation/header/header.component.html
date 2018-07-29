@@ -1,13 +1,17 @@
-<mat-toolbar class="z-depth-1">
+<mat-toolbar class="z-depth-1" color="primary">
     <div fxHide.gt-xs>
       <button mat-icon-button (click)="onToggleSidenav()">
         <mat-icon>menu</mat-icon>
       </button>
     </div>
     <div class="header-logo">
-      <a routerLink="/">Encuestas  Rock&amp;Vida</a>
+      <a routerLink="/">Encuestas Rock&amp;Vida</a>
     </div>
-    <div class="header-nav" fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
+    <div class="header-nav" 
+        fxFlex 
+        fxLayout 
+        fxLayoutAlign="flex-end" 
+        fxHide.xs>
       <ul fxLayout fxLayoutGap="10px" class="navigation-items">
         <li *ngIf="!isAuth">
           <a routerLink="/signup">Registrarse</a>

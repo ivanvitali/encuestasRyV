@@ -42,7 +42,7 @@ font-family: 'Itim', cursive;
     position: absolute;
     top: 40%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-45%,-50%);
 }
 
 .heading-primary {
@@ -120,5 +120,37 @@ font-family: 'Itim', cursive;
 }
 
 .welcome {
-    text-align: center;
+    /* text-align: center; */
+    height: 65vh;
+    padding: 1.5rem;
+}
+
+mat-card {}
+
+@media (max-width: 600px) {
+    .header {
+        height: 60vh;
+    
+        -webkit-clip-path: polygon(
+            0 0, 
+            100% 0, 
+            100% 55vh, 
+            0 100%);
+        clip-path: polygon(
+            0 0, 
+            100% 0, 
+            100% 55vh, 
+            0 100%);
+    }
+    
+    .heading-primary-main {
+        font-size: 1.5rem;
+        letter-spacing: 1rem;
+    }
+    
+    .heading-primary-sub {
+        font-size: .8rem;
+        font-weight: 400;
+        letter-spacing: 1.45rem;
+    }
 }
