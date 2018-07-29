@@ -1,86 +1,333 @@
-<mat-card>
-  <mat-card-title>    
-      Encuesta de ViH
-  </mat-card-title>
-  <mat-card-subtitle>
-    Datos Generales
-  </mat-card-subtitle>
-    <mat-card-content>
-      <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" #vihSurveyForm="ngForm">
-        <div fxLayout="column" fxLayout.gt-sm="row">
-          <mat-form-field fxFlex="25">
-            <input 
-                type="email" 
-                matInput 
-                placeholder="Correo Electronico" 
-                ngModel 
-                name="email"
-                email
-                #emailInput="ngModel">
-            <mat-error *ngIf="emailInput.hasError('email')">Correo Electronico invalido</mat-error>
-          </mat-form-field>
-        
-          <section class="seccion-radio" fxFlex="50" fxLayoutAlign="center center">
-            <label class="label-margin">Sexo:</label>
-            <mat-radio-group ngModel name="sexo" required fxLayout="row">
-              <mat-radio-button class="radio-margin" value="Hombre">Masculino</mat-radio-button>
-              <mat-radio-button class="radio-margin" value="Mujer">Femenino</mat-radio-button>
-            </mat-radio-group>
-          </section>
 
-          <mat-form-field fxFlex="25">
-            <input 
-                type="number" 
-                matInput 
-                placeholder="Edad" 
-                ngModel 
-                name="edad"
-                edad
-                required
-                #ageInput="ngModel"
-                pattern="^[+]?\d{2}$">
-            <mat-error *ngIf="ageInput.hasError('required')">No debe quedar vacio</mat-error>
-            <!-- <mat-error *ngIf="ageInput.value < '10' && !pattern">Valor no debe ser negativo, ni cero</mat-error> -->
-            <mat-error *ngIf="!pattern && !ageInput.hasError('required')">Minimo 2 digitos</mat-error>
-          </mat-form-field>
-        </div>
-        <div>
-          <section class="seccion-radio" fxLayout="row" fxLayoutAlign="space-evenly start">
-            <label class="label-margin" fxFlex>Estado Civil:</label>
-            <mat-radio-group ngModel name="estadoCivil" fxFlex fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="space-evenly start">
-              <mat-radio-button class="radio-margin" value="Soltero" >Soltero</mat-radio-button>
-              <mat-radio-button class="radio-margin" value="Casado" >Casado</mat-radio-button>
-              <mat-radio-button class="radio-margin" value="Viudo">Viudo</mat-radio-button>
-              <mat-radio-button class="radio-margin" value="Separado">Separado</mat-radio-button>
-              <mat-radio-button class="radio-margin" value="Pareja">Pareja</mat-radio-button>
-            </mat-radio-group>
-          </section>
-        </div>
-        <div>
-          <section class="seccion-radio" fxLayout="row" fxLayoutAlign="space-evenly start">
-            <label class="label-margin" fxFlex>Instruccion:</label>
-            <mat-radio-group ngModel name="estudio" fxFlex fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="space-evenly start">
-              <mat-radio-button class="radio-margin" value="Primario">Primario</mat-radio-button>
-              <mat-radio-button class="radio-margin" value="Secundario">Secundario</mat-radio-button>
-              <mat-radio-button class="radio-margin" value="Terciario">Terciario</mat-radio-button>
-              <mat-radio-button class="radio-margin" value="Universitario">Universitario</mat-radio-button>
-            </mat-radio-group>
-          </section>
-        </div>
-        <div>
+<article class="angular-material">
+  <form class="vih-form" 
+        novalidate
+        #vihSurveyForm="ngForm"
+        (ngSubmit)="onSubmit(vihSurveyForm)">
+    <section class="form-group">
+      <h3>Datos Personales</h3>
+      <ul class="form-field">
+        <li>
           <mat-form-field>
-            <input 
-                type="text" 
-                matInput 
-                placeholder="Ocupacion" 
-                ngModel 
-                name="ocupacion">
+            <input type="email"
+                    id="email"
+                    matInput
+                    ngModel
+                    name="email"
+                    email
+                    pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+"
+                    placeholder="Correo Electronico"
+                    autocomplete="off"
+                    #emailInput="ngModel">
+            <mat-error *ngIf="(emailInput.dirty || emailInput.touched) && emailInput.errors">
+              Ingrese un correo electronico valido
+            </mat-error>
           </mat-form-field>
-        </div>
-        <hr>
-      </form>    
-    </mat-card-content>
-  <mat-card-actions>
-    <button type="submit" mat-raised-button color="primary" (click)="onSubmit(vihSurveyForm)" [disabled]="vihSurveyForm.invalid">Guardar</button>
-  </mat-card-actions>
-</mat-card>
+        </li>
+        <li>
+          <mat-form-field>
+            <input type="number" 
+                    matInput 
+                    name="age" 
+                    id="age" 
+                    placeholder="Edad"
+                    ngModel
+                    age
+                    required
+                    #ageInput="ngModel">
+            <mat-error *ngIf="(ageInput.touched || ageInput.dirty) && ageInput.hasError('required')">
+              No debe estar vacio
+            </mat-error>
+          </mat-form-field>
+        </li>
+      </ul>
+
+      <!-- Radio Sexo -->
+      <h4>Sexo*</h4>
+      <mat-radio-group name="gender" ngModel gender #genderInput="ngModel" required>
+        <ul class="form-gender">
+          <li>
+            <mat-radio-button value="Masculino">Masculino</mat-radio-button>
+          </li>
+          <li>
+            <mat-radio-button value="Femenino">Femenino</mat-radio-button>
+          </li>
+        </ul>
+        <mat-error *ngIf="(genderInput.dirty || genderInput.touched) && genderInput.hasError('required')">Por favor ingrese el genero</mat-error>
+      </mat-radio-group><!-- Radio Sexo -->
+
+      <!-- Estado Civil -->
+      <h4>Estado Civil</h4>
+      <mat-radio-group name="civil-status" ngModel>
+      <ul class="form-civil-status">
+        <li>
+          <mat-radio-button value="Soltero">Soltero</mat-radio-button>
+        </li>
+        <li>
+          <mat-radio-button value="Casado">Casado</mat-radio-button>
+        </li>
+        <li>
+          <mat-radio-button value="Viudo">Viudo</mat-radio-button>
+        </li>
+        <li>
+          <mat-radio-button value="Separado">Separado</mat-radio-button>
+        </li>
+        <li>
+          <mat-radio-button value="Pareja">Pareja</mat-radio-button>
+        </li>
+      </ul>
+      </mat-radio-group><!-- Estado Civil -->
+
+      <!-- Instruccion -->
+      <h4>Instruccion</h4>
+      <mat-radio-group name="instruction" ngModel>
+      <ul class="form-instruction">
+        <li>
+          <mat-radio-button value="Primario">Primario</mat-radio-button>
+        </li>
+        <li>
+          <mat-radio-button value="Secundario">Secundario</mat-radio-button>
+        </li>
+        <li>
+          <mat-radio-button value="Terciario">Terciario</mat-radio-button>
+        </li>
+        <li>
+          <mat-radio-button value="Universitario">Universitario</mat-radio-button>
+        </li>
+      </ul>
+      </mat-radio-group><!-- Instruccion -->
+    </section>
+
+    <section class="form-group">
+        <h3>Encuesta ViH</h3>
+        <!-- Pregunta 1 -->
+        <h4>1. A traves de que vias recibis informacion sobre VIH-SIDA?</h4>
+        <ul class="form-question-1">
+          <li>
+            <mat-checkbox value="Familia">Familia</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox value="Universidad">Universidad</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox value="Folletos">Folletos</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox value="Internet">Internet</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox value="Revistas">Revistas</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox value="TV">TV</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox value="Institucion">Institucion</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox value="Escuela">Escuela</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox value="Investigacion Personal">Inv. Personal</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox value="Amigo">Amigo</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox value="Radio">Radio</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox value="Libros">Libros</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox value="Hospital">Hospital</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox value="Via Publica">Via Publica</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox value="Diarios">Diarios</mat-checkbox>
+          </li>
+          <li>
+            <mat-checkbox value="Otra">Otra</mat-checkbox>
+          </li>
+        </ul><!-- Pregunta 1 -->
+  
+        <!-- Pregunta 2 -->
+        <h4>2. Crees que Vih y Sida es lo mismo?</h4>
+        <mat-radio-group name="question-2">
+        <ul class="form-question-2">
+          <li>
+            <mat-radio-button value="Si">Si</mat-radio-button>
+          </li>
+          <li>
+            <mat-radio-button value="No">No</mat-radio-button>
+          </li>
+        </ul>
+        </mat-radio-group><!-- Pregunta 2 -->
+        
+        <!-- Pregunta 3 -->
+        <h4>3. Te consideras expuesto al virus? Porque?</h4>
+        <mat-radio-group name="question-3">
+        <ul class="form-question-3">
+          <li>
+            <mat-radio-button value="Si">Si</mat-radio-button>
+            <!-- porque -->
+            <mat-radio-group name="motive-3">
+              <ul class="motive-3-yes">
+                <li>
+                  <mat-radio-button value="Uso drogas">Uso drogas</mat-radio-button>
+                </li>
+                <li>
+                  <mat-radio-button value="No uso preservativo">No uso preservativo</mat-radio-button>
+                </li>
+                <li>
+                  <mat-radio-button value="Nadie esta exento">Nadie esta exento</mat-radio-button>
+                </li>
+                <li>
+                  <mat-radio-button value="Otra">Otra</mat-radio-button>
+                </li>
+              </ul>
+            </mat-radio-group>
+          </li>
+          <li>
+            <mat-radio-button value="No">No</mat-radio-button>
+            <!-- porque -->
+            <mat-radio-group name="motive-3">
+              <ul class="motive-3-no">
+                <li>
+                  <mat-radio-button value="Uso preservativo siempre">Uso preservativo siempre</mat-radio-button>
+                </li>
+                <li>
+                  <mat-radio-button value="No tengo vida sexual activa">No tengo vida sexual activa</mat-radio-button>
+                </li>
+                <li>
+                  <mat-radio-button value="Mantengo una vida sana">Mantengo una vida sana</mat-radio-button>
+                </li>
+                <li>
+                  <mat-radio-button value="Me cuido en todas las situaciones de riesgo">Me cuido en todas las situaciones de riesgo</mat-radio-button>
+                </li>
+                <li>
+                  <mat-radio-button value="Otra">Otra</mat-radio-button>
+                </li>
+              </ul>
+            </mat-radio-group>
+          </li>
+        </ul>
+        </mat-radio-group><!-- Pregunta 3 -->
+  
+      <!-- Pregunta 4 -->
+      <h4>4. Usas preservativo?</h4>
+      <mat-radio-group name="question-4">
+        <ul class="form-question-4">
+          <li>
+            <mat-radio-button value="Si">Si</mat-radio-button>
+          </li>
+          <li>
+            <mat-radio-button value="Aveces">Aveces</mat-radio-button>
+          </li>
+          <li>
+            <mat-radio-button value="No">No</mat-radio-button>
+            <!-- porque -->
+            <mat-radio-group name="motive-3">
+              <ul class="motive-4-no">
+                <li>
+                  <mat-radio-button value="Conozco a mi pareja">Conozco a mi pareja</mat-radio-button>
+                </li>
+                <li>
+                  <mat-radio-button value="No me gusta">No me gusta</mat-radio-button>
+                </li>
+                <li>
+                  <mat-radio-button value="Otra">Otra</mat-radio-button>
+                </li>
+              </ul>
+            </mat-radio-group>
+          </li>
+        </ul>
+      </mat-radio-group><!-- Pregunta 4 -->
+  
+      <!-- Pregunta 5 -->
+      <h4>5. Sabes cuantas pruebas hacen falta para saber con certeza si estas infectado con el virus Vih?</h4>
+      <mat-radio-group name="question-5">
+        <ul class="form-question-5">
+          <li>
+            <mat-radio-button value="Si">Si</mat-radio-button>
+          </li>
+          <li>
+            <mat-radio-button value="No">No</mat-radio-button>
+          </li>
+        </ul>
+      </mat-radio-group><!-- Pregunta 5 -->
+  
+      <!-- Pregunta 6 -->
+      <h4>6. Alguna vez realizaste la prueba de deteccion de Vih?</h4>
+      <mat-radio-group name="question-6">
+        <ul class="form-question-6">
+          <li>
+            <mat-radio-button value="Si">Si</mat-radio-button>
+          </li>
+          <li>
+            <mat-radio-button value="No">No</mat-radio-button>
+          </li>
+        </ul>
+      </mat-radio-group><!-- Pregunta 6 -->
+  
+      <!-- Pregunta 7 -->
+      <h4>7. Cuales de estas son vias de transmision?</h4>
+      <ul class="form-question-7">
+        <li>
+          <mat-checkbox value="Semen">Semen</mat-checkbox>
+        </li>
+        <li>
+          <mat-checkbox value="Sangre">Sangre</mat-checkbox>
+        </li>
+        <li>
+          <mat-checkbox value="Madre-Hijo">Madre-Hijo</mat-checkbox>
+        </li>
+        <li>
+          <mat-checkbox value="Besos">Besos</mat-checkbox>
+        </li>
+        <li>
+          <mat-checkbox value="Sexo oral">Sexo oral</mat-checkbox>
+        </li>
+        <li>
+          <mat-checkbox value="Compartir el mate">Compartir el mate</mat-checkbox>
+        </li>
+        <li>
+          <mat-checkbox value="Picaduras de insectos">Picaduras de insectos</mat-checkbox>
+        </li>
+      </ul><!-- Pregunta 7 -->
+  
+      <!-- Pregunta 8 -->
+      <h4>8. Sabes que son las ITS?</h4>
+      <mat-radio-group name="question-8">
+        <ul class="form-question-8">
+          <li>
+            <mat-radio-button value="Si">Si</mat-radio-button>
+          </li>
+          <li>
+            <mat-radio-button value="No">No</mat-radio-button>
+          </li>
+        </ul>
+      </mat-radio-group><!-- Pregunta 8 -->
+        
+      </section>
+  
+      <section class="form-submit">
+        <button type="submit" 
+                mat-raised-button 
+                [disabled]="!vihSurveyForm.valid"
+                color="primary"
+                (click)="onSubmit(vihSurveyForm)">Guardar</button>
+        <button type="reset" 
+                mat-button>Cancelar</button>
+      </section>
+  </form>
+</article>
+
+<section class="form-state">
+<br>Dirty: {{ vihSurveyForm.dirty }}
+<br>Touched: {{ vihSurveyForm.touched }}
+<br>Valid: {{ vihSurveyForm.valid }}
+<br>Value: {{ vihSurveyForm.value | json }}
+</section>
