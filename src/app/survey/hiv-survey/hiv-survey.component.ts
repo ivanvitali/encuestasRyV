@@ -58,7 +58,7 @@ export class HivSurveyComponent implements OnInit {
   // }
 
   get age() {
-    return this.hivSurveyForm.get('age';)
+    return this.hivSurveyForm.get('age');
   }
 
   get email() {
