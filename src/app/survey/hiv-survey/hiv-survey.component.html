@@ -1,9 +1,10 @@
 
 <article class="angular-material">
-  <form class="vih-form" 
-        novalidate
-        #vihSurveyForm="ngForm"
-        (ngSubmit)="onSubmit(vihSurveyForm)">
+  <form 
+    class="vih-form"
+    novalidate
+    (ngSubmit)="onSubmit(hivSurveyForm)"
+    [formGroup]="hivSurveyForm">
     <section class="form-group">
       <h3>Datos Personales</h3>
       <ul class="form-field">
@@ -11,40 +12,46 @@
           <mat-form-field>
             <input type="email"
                     id="email"
+                    formControlName="email"
                     matInput
-                    ngModel
-                    name="email"
-                    email
-                    pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+"
-                    placeholder="Correo Electronico"
                     autocomplete="off"
-                    #emailInput="ngModel">
-            <mat-error *ngIf="(emailInput.dirty || emailInput.touched) && emailInput.errors">
+                    placeholder="Correo Electronico">
+            <mat-error *ngIf="email.dirty && email.errors">
               Ingrese un correo electronico valido
             </mat-error>
+            <mat-hint>
+              Ingrese su correo electronico
+            </mat-hint>
           </mat-form-field>
         </li>
         <li>
           <mat-form-field>
             <input type="number" 
-                    matInput 
-                    name="age" 
-                    id="age" 
-                    placeholder="Edad"
-                    ngModel
-                    age
-                    required
-                    #ageInput="ngModel">
-            <mat-error *ngIf="(ageInput.touched || ageInput.dirty) && ageInput.hasError('required')">
-              No debe estar vacio
+                    matInput
+                    id="age"
+                    formControlName="age" 
+                    placeholder="Edad*">
+            <mat-error *ngIf="(age.dirty || age.touched) && age.errors">
+              <span
+                *ngIf="age.errors.required" >
+                No debe estar vacio
+              </span>
+              <span
+                *ngIf="age.errors.pattern" >
+                Ingrese una edad valida
+              </span>
             </mat-error>
+            <mat-hint>
+              Ingrese su edad
+            </mat-hint>
           </mat-form-field>
         </li>
       </ul>
 
       <!-- Radio Sexo -->
       <h4>Sexo*</h4>
-      <mat-radio-group name="gender" ngModel gender #genderInput="ngModel" required>
+      <mat-radio-group
+        formControlName="gender">
         <ul class="form-gender">
           <li>
             <mat-radio-button value="Masculino">Masculino</mat-radio-button>
@@ -53,34 +60,25 @@
             <mat-radio-button value="Femenino">Femenino</mat-radio-button>
           </li>
         </ul>
-        <mat-error *ngIf="(genderInput.dirty || genderInput.touched) && genderInput.hasError('required')">Por favor ingrese el genero</mat-error>
+        <mat-error
+          *ngIf="gender.invalid && (gender.dirty || gender.touched)">Por favor ingrese su genero</mat-error>
       </mat-radio-group><!-- Radio Sexo -->
 
       <!-- Estado Civil -->
-      <h4>Estado Civil</h4>
-      <mat-radio-group name="civil-status" ngModel>
+      <h4>Estado Civil*</h4>
+      <mat-radio-group
+        formControlName="civilStatus">
       <ul class="form-civil-status">
-        <li>
-          <mat-radio-button value="Soltero">Soltero</mat-radio-button>
-        </li>
-        <li>
-          <mat-radio-button value="Casado">Casado</mat-radio-button>
-        </li>
-        <li>
-          <mat-radio-button value="Viudo">Viudo</mat-radio-button>
-        </li>
-        <li>
-          <mat-radio-button value="Separado">Separado</mat-radio-button>
-        </li>
-        <li>
-          <mat-radio-button value="Pareja">Pareja</mat-radio-button>
+        <li *ngFor="let civil of civilStatusList">
+          <mat-radio-button [value]="civil.status">{{ civil.status }}</mat-radio-button>
         </li>
       </ul>
       </mat-radio-group><!-- Estado Civil -->
 
       <!-- Instruccion -->
       <h4>Instruccion</h4>
-      <mat-radio-group name="instruction" ngModel>
+      <mat-radio-group 
+        formControlName="instruction">
       <ul class="form-instruction">
         <li>
           <mat-radio-button value="Primario">Primario</mat-radio-button>
@@ -168,57 +166,81 @@
         
         <!-- Pregunta 3 -->
         <h4>3. Te consideras expuesto al virus? Porque?</h4>
-        <mat-radio-group name="question-3">
+        <!-- <div formGroupName="question3"> -->
+        <div>
+          <!-- <mat-radio-group
+          formControlName="answer"> -->
+          <mat-radio-group>
         <ul class="form-question-3">
           <li>
             <mat-radio-button value="Si">Si</mat-radio-button>
             <!-- porque -->
-            <mat-radio-group name="motive-3">
-              <ul class="motive-3-yes">
-                <li>
-                  <mat-radio-button value="Uso drogas">Uso drogas</mat-radio-button>
-                </li>
-                <li>
-                  <mat-radio-button value="No uso preservativo">No uso preservativo</mat-radio-button>
-                </li>
-                <li>
-                  <mat-radio-button value="Nadie esta exento">Nadie esta exento</mat-radio-button>
-                </li>
-                <li>
-                  <mat-radio-button value="Otra">Otra</mat-radio-button>
-                </li>
-              </ul>
+            <!-- <mat-radio-group
+              formControlName="motive"
+              class="motive-3"
+              *ngIf="answer3.value === 'Si'"> -->
+            <mat-radio-group
+              class="motive-3">
+              <div class="motive">
+                  <h4>Porque:</h4>
+                  <ul>
+                    <li>
+                      <mat-radio-button value="Uso drogas">Uso drogas</mat-radio-button>
+                    </li>
+                    <li>
+                      <mat-radio-button value="No uso preservativo">No uso preservativo</mat-radio-button>
+                    </li>
+                    <li>
+                      <mat-radio-button value="Nadie esta exento">Nadie esta exento</mat-radio-button>
+                    </li>
+                    <li>
+                      <mat-radio-button value="Otra">Otra</mat-radio-button>
+                    </li>
+                  </ul>
+              </div>
             </mat-radio-group>
           </li>
           <li>
             <mat-radio-button value="No">No</mat-radio-button>
             <!-- porque -->
-            <mat-radio-group name="motive-3">
-              <ul class="motive-3-no">
-                <li>
-                  <mat-radio-button value="Uso preservativo siempre">Uso preservativo siempre</mat-radio-button>
-                </li>
-                <li>
-                  <mat-radio-button value="No tengo vida sexual activa">No tengo vida sexual activa</mat-radio-button>
-                </li>
-                <li>
-                  <mat-radio-button value="Mantengo una vida sana">Mantengo una vida sana</mat-radio-button>
-                </li>
-                <li>
-                  <mat-radio-button value="Me cuido en todas las situaciones de riesgo">Me cuido en todas las situaciones de riesgo</mat-radio-button>
-                </li>
-                <li>
-                  <mat-radio-button value="Otra">Otra</mat-radio-button>
-                </li>
-              </ul>
+            <!-- <mat-radio-group
+              formControlName="motive"
+              class="motive-3"
+              *ngIf="answer3.value === 'No'"> -->
+            <mat-radio-group
+              class="motive-3">
+              <div class="motive">
+                <h4>Porque:</h4>
+                <ul class="motive-3-no">
+                  <li>
+                    <mat-radio-button value="Uso preservativo siempre">Uso preservativo siempre</mat-radio-button>
+                  </li>
+                  <li>
+                    <mat-radio-button value="No tengo vida sexual activa">No tengo vida sexual activa</mat-radio-button>
+                  </li>
+                  <li>
+                    <mat-radio-button value="Mantengo una vida sana">Mantengo una vida sana</mat-radio-button>
+                  </li>
+                  <li>
+                    <mat-radio-button value="Me cuido en todas las situaciones de riesgo">Me cuido en todas las situaciones de riesgo</mat-radio-button>
+                  </li>
+                  <li>
+                    <mat-radio-button value="Otra">Otra</mat-radio-button>
+                  </li>
+                </ul>
+              </div>
             </mat-radio-group>
           </li>
         </ul>
         </mat-radio-group><!-- Pregunta 3 -->
+        </div>
+        
   
       <!-- Pregunta 4 -->
       <h4>4. Usas preservativo?</h4>
-      <mat-radio-group name="question-4">
+      <!-- <mat-radio-group 
+        formControlName="answer4"> -->
+      <mat-radio-group>
         <ul class="form-question-4">
           <li>
             <mat-radio-button value="Si">Si</mat-radio-button>
@@ -229,18 +251,23 @@
           <li>
             <mat-radio-button value="No">No</mat-radio-button>
             <!-- porque -->
-            <mat-radio-group name="motive-3">
+            <!-- <mat-radio-group 
+              *ngIf="answer4.value === 'No'"> -->
+          <mat-radio-group>
+            <div class="motive">
+              <h4>Porque:</h4>
               <ul class="motive-4-no">
-                <li>
-                  <mat-radio-button value="Conozco a mi pareja">Conozco a mi pareja</mat-radio-button>
-                </li>
-                <li>
-                  <mat-radio-button value="No me gusta">No me gusta</mat-radio-button>
-                </li>
-                <li>
-                  <mat-radio-button value="Otra">Otra</mat-radio-button>
-                </li>
-              </ul>
+                  <li>
+                    <mat-radio-button value="Conozco a mi pareja">Conozco a mi pareja</mat-radio-button>
+                  </li>
+                  <li>
+                    <mat-radio-button value="No me gusta">No me gusta</mat-radio-button>
+                  </li>
+                  <li>
+                    <mat-radio-button value="Otra">Otra</mat-radio-button>
+                  </li>
+                </ul>
+            </div>
             </mat-radio-group>
           </li>
         </ul>
@@ -316,9 +343,8 @@
       <section class="form-submit">
         <button type="submit" 
                 mat-raised-button 
-                [disabled]="!vihSurveyForm.valid"
-                color="primary"
-                (click)="onSubmit(vihSurveyForm)">Guardar</button>
+                [disabled]="!hivSurveyForm.valid"
+                color="primary">Guardar</button>
         <button type="reset" 
                 mat-button>Cancelar</button>
       </section>
@@ -326,8 +352,8 @@
 </article>
 
 <section class="form-state">
-<br>Dirty: {{ vihSurveyForm.dirty }}
-<br>Touched: {{ vihSurveyForm.touched }}
-<br>Valid: {{ vihSurveyForm.valid }}
-<br>Value: {{ vihSurveyForm.value | json }}
+  <br>Dirty: {{ hivSurveyForm.dirty }}
+  <br>Touched: {{ hivSurveyForm.touched }}
+  <br>Valid: {{ hivSurveyForm.valid }}
+  <br>Value: {{ hivSurveyForm.value | json }}
 </section>

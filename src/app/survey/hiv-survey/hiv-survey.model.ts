@@ -1,7 +1,10 @@
-export interface HivSurvey {
-    email?: string;
-    age: number;
-    gender: string;
-    civilStatus: string;
-    instruction: string;
+export class HivSurvey {
+    constructor() {}
+
+    public email?: string;
+    public age: number;
+    public gender: string;
+    public civilStatus: string;
+    public instruction: string;
+    
 }
