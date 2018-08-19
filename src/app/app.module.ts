@@ -23,9 +23,11 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
 
 // services
 import { AuthService } from './auth/auth.service';
+import { HivSurveyService } from './survey/hiv-survey/hiv-survey.service';
 
 // environment
 import { environment } from '../environments/environment';
+
 
 @NgModule({
   declarations: [
@@ -52,7 +54,8 @@ import { environment } from '../environments/environment';
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'es-LA'},
-    AuthService
+    AuthService,
+    HivSurveyService
   ],
   bootstrap: [AppComponent]
 })

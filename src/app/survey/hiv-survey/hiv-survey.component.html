@@ -94,7 +94,19 @@
         </li>
       </ul>
       </mat-radio-group><!-- Instruccion -->
+
+      <!-- Ubicacion -->
+      <h4>Ubicacion</h4>
+      <mat-form-field>
+        <mat-select placeholder="Ingrese el pais">
+          <mat-option *ngFor="let country of countries | async" value="Argentina">
+            {{ country.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field><!-- Ubicacion -->
     </section>
+
+    
 
     <section class="form-group">
         <h3>Encuesta ViH</h3>

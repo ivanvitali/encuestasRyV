@@ -5,10 +5,10 @@ import {
   Validators,
   FormArray
 } from '@angular/forms';
-import { AngularFirestore } from 'angularfire2/firestore';
 
 import { HivSurvey } from './hiv-survey.model';
 import { HivSurveyService } from './hiv-survey.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-hiv-survey',
@@ -19,6 +19,8 @@ export class HivSurveyComponent implements OnInit {
 
   hivSurveyForm: FormGroup;
   hivSurvey: HivSurvey = new HivSurvey();
+
+  countries: Observable<any>;
 
   // hivSurveyForm = new FormGroup({
   //   email: new FormControl('', Validators.email),
@@ -97,7 +99,7 @@ export class HivSurveyComponent implements OnInit {
     return (form.get('email').value === "" || form.get('email').value === null) ? true : false;
   }
 
-  constructor(private hivSurveyService: HivSurveyService, private db: AngularFirestore) {}
+  constructor(private hivSurveyService: HivSurveyService) {}
 
   ngOnInit(): void {
     this.hivSurveyForm = new FormGroup({
@@ -107,6 +109,8 @@ export class HivSurveyComponent implements OnInit {
       civilStatus: new FormControl('', Validators.required),
       instruction: new FormControl()
     });
+
+    this.countries = this.hivSurveyService.getCountries();
   }
 
   onSubmit(hivSurveyForm: FormGroup) {
