@@ -5,6 +5,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 
@@ -21,6 +23,9 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
 
 // services
 import { AuthService } from './auth/auth.service';
+
+// environment
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -41,7 +46,9 @@ import { AuthService } from './auth/auth.service';
     AppRoutingModule,
     FlexLayoutModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'es-LA'},

@@ -5,8 +5,10 @@ import {
   Validators,
   FormArray
 } from '@angular/forms';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 import { HivSurvey } from './hiv-survey.model';
+import { HivSurveyService } from './hiv-survey.service';
 
 @Component({
   selector: 'app-hiv-survey',
@@ -95,7 +97,7 @@ export class HivSurveyComponent implements OnInit {
     return (form.get('email').value === "" || form.get('email').value === null) ? true : false;
   }
 
-  constructor() {}
+  constructor(private hivSurveyService: HivSurveyService, private db: AngularFirestore) {}
 
   ngOnInit(): void {
     this.hivSurveyForm = new FormGroup({
