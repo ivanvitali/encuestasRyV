@@ -108,9 +108,11 @@
       </mat-form-field>
       
       <mat-form-field
-        *ngIf="showStates == true">
-          <mat-select placeholder="Ingrese la provincia">
-            <mat-option *ngFor="let state of states | async" [value]="state.id">
+        *ngIf="showStatesSelectInputField == true">
+          <mat-select 
+            placeholder="Ingrese la provincia"
+            formControlName="state">
+            <mat-option *ngFor="let state of states" [value]="state.alias">
               {{ state.alias }}
             </mat-option>
           </mat-select>
