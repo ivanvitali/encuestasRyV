@@ -98,12 +98,23 @@
       <!-- Ubicacion -->
       <h4>Ubicacion</h4>
       <mat-form-field>
-        <mat-select placeholder="Ingrese el pais">
-          <mat-option *ngFor="let country of countries | async" value="Argentina">
+        <mat-select 
+          placeholder="Ingrese el pais"
+          formControlName="country">
+          <mat-option *ngFor="let country of countries" [value]="country.name">
             {{ country.name }}
           </mat-option>
         </mat-select>
-      </mat-form-field><!-- Ubicacion -->
+      </mat-form-field>
+      
+      <mat-form-field
+        *ngIf="showStates == true">
+          <mat-select placeholder="Ingrese la provincia">
+            <mat-option *ngFor="let state of states | async" [value]="state.id">
+              {{ state.alias }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field><!-- Ubicacion -->
     </section>
 
     

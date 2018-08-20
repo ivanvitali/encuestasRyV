@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   FormGroup, 
   FormControl,
@@ -7,20 +7,26 @@ import {
 } from '@angular/forms';
 
 import { HivSurvey } from './hiv-survey.model';
+import { Country } from './country.model';
 import { HivSurveyService } from './hiv-survey.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-hiv-survey',
   templateUrl: './hiv-survey.component.html',
   styleUrls: ['./hiv-survey.component.css']
 })
-export class HivSurveyComponent implements OnInit {
+export class HivSurveyComponent implements OnInit, OnDestroy {
 
   hivSurveyForm: FormGroup;
   hivSurvey: HivSurvey = new HivSurvey();
 
-  countries: Observable<any>;
+  selectedCountry: Observable<any[]>;
+  countries: Country[];
+  countrySubscription: Subscription;
+  states: Observable<any[]>;
+
+  showStates: boolean = false;
 
   // hivSurveyForm = new FormGroup({
   //   email: new FormControl('', Validators.email),
@@ -107,10 +113,42 @@ export class HivSurveyComponent implements OnInit {
       age: new FormControl('', [Validators.required, Validators.pattern('^[1-9]+[0-9]*$')]),
       gender: new FormControl('', Validators.required),
       civilStatus: new FormControl('', Validators.required),
-      instruction: new FormControl()
+      instruction: new FormControl('', Validators.required),
+      country: new FormControl('', Validators.required)
     });
 
-    this.countries = this.hivSurveyService.getCountries();
+    this.countrySubscription = this.hivSurveyService.countriesChanged
+      .subscribe((availableCountries) => {
+        this.countries = availableCountries;
+        // console.log('countries: ',this.countries);
+      });
+
+    
+    this.hivSurveyService.fetchCountries();
+
+    //this.countries = this.hivSurveyService.getCountries();
+    
+    //console.log('countries: ',this.countries);
+    //this.selectedCountry = this.hivSurveyService.getCountryArgentina();
+    //console.log('selected country: ',this.selectedCountry);
+    //this.states = this.hivSurveyService.getStates('Wu3dGivEkkUCrl7WmFoU');
+
+    //this.hivSurveyService.getCountryId();
+
+    this.hivSurveyForm
+      .get('country')
+      .valueChanges
+      .subscribe((value) => {
+        // get CountryID
+        let countryId:string = this.getCountryId(this.countries, value);
+
+        console.log('id: ', countryId, ' name: ',value);
+        this.showStates = true;
+      });
+
+    //test
+    this.hivSurveyService.getTest();
+    this.hivSurveyService.getTest2();
   }
 
   onSubmit(hivSurveyForm: FormGroup) {
@@ -119,6 +157,22 @@ export class HivSurveyComponent implements OnInit {
       delete hivSurveyForm.value['email'];
     }
     console.log(hivSurveyForm.value);
+  }
+
+  getCountryId(countries: Country[], name: string): string {
+    return this.getCountryByName(countries, name).id;    
+  }
+
+  private getCountryByName(countries: Country[], name: string): Country {
+    for (let index = 0; index < countries.length; index++) {
+      if (countries[index].name === name) {
+        return countries[index];
+      }
+    }
+  }
+
+  ngOnDestroy() {
+    this.countrySubscription.unsubscribe();
   }
 
 }
