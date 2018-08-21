@@ -38,7 +38,6 @@ export class HivSurveyService {
                 });
             }))
             .subscribe((countries: Country[]) => {
-                console.log('fetchCountries(): ',countries);
                 this.availableCountries = countries;
                 this.countriesChanged.next([...this.availableCountries]);
             });
@@ -57,7 +56,6 @@ export class HivSurveyService {
                 });
             }))
             .subscribe((states: State[]) => {
-                console.log('fetchStates(id): ',states);
                 this.availableStates = states;
                 this.statesChanged.next([...this.availableStates]);
             });
@@ -80,7 +78,6 @@ export class HivSurveyService {
                 });
             }))
             .subscribe((cities: City[]) => {
-                console.log('fetchCities(id): ',cities);
                 this.availableCities = cities;
                 this.citiesChanged.next([...this.availableCities]);
             });
@@ -99,7 +96,6 @@ export class HivSurveyService {
                 });
             }))
             .subscribe((districts: District[]) => {
-                console.log('fetchDistricts(id): ',districts);
                 this.availableDistricts = districts;
                 this.districtsChanged.next([...this.availableDistricts]);
             });

@@ -132,91 +132,94 @@ export class HivSurveyComponent implements OnInit, OnDestroy {
       gender: new FormControl('', Validators.required),
       civilStatus: new FormControl('', Validators.required),
       instruction: new FormControl('', Validators.required),
-      country: new FormControl('', Validators.required),
-      state: new FormControl('', Validators.required),
-      city: new FormControl('', Validators.required),
-      district: new FormControl('', Validators.required)
+      location: new FormGroup({
+        country: new FormControl('', Validators.required),
+        state: new FormControl('', Validators.required),
+        city: new FormControl('', Validators.required),
+        district: new FormControl('', Validators.required)
+      })
+      
     });
 
     this.countrySubscription = this.hivSurveyService.countriesChanged
       .subscribe((availableCountries) => {
         this.countries = availableCountries;
-        // console.log('countries: ',this.countries);
       });
     
     this.stateSubscription = this.hivSurveyService.statesChanged
       .subscribe((availableStates) => {
         this.states = availableStates;
-        // console.log('countries: ',this.countries);
       });
     
     this.citySubscription = this.hivSurveyService.citiesChanged
       .subscribe((availableCities) => {
         this.cities = availableCities;
-        // console.log('countries: ',this.countries);
       });
 
     this.districtSubscription = this.hivSurveyService.districtsChanged
       .subscribe((availableDistricts) => {
         this.districts = availableDistricts;
-        // console.log('countries: ',this.countries);
       });
     
     this.hivSurveyService.fetchCountries();
 
 
     this.hivSurveyForm
-      .get('country')
+      .get('location.country')
       .valueChanges
       .subscribe((value) => {
-        // get CountryID
-        let countryId:string = this.getCountryId(this.countries, value);
-        // fetch states
-        this.hivSurveyService.fetchStates(countryId);
+        if (value) {
+          // get CountryID
+          let countryId:string = this.getCountryId(this.countries, value);
+          // fetch states by countryId
+          this.hivSurveyService.fetchStates(countryId);
 
-        if (countryId) {
-          this.setCoutryId(countryId);
-          this.showStateSelectInputField = true;
-        } else {
-          this.showStateSelectInputField = false;
+          if (countryId) {
+            this.setCoutryId(countryId);
+            this.showStateSelectInputField = true;
+          } else {
+            this.showStateSelectInputField = false;
+          }
         }
       });
     
     this.hivSurveyForm
-      .get('state')
+      .get('location.state')
       .valueChanges
       .subscribe((value) => {
-        // get StateID
-        let stateId:string = this.getStateId(this.states, value);
+        if (value) {
+          // get StateID
+          let stateId:string = this.getStateId(this.states, value);
 
-        // fetch states
-        this.hivSurveyService.fetchCities(this.countryIdSelected, stateId );
+          // fetch cities by countryId and stateId
+          this.hivSurveyService.fetchCities(this.countryIdSelected, stateId );
 
-        if (stateId) {
-          this.setStateId(stateId);
-          this.showCitySelectInputField = true;
-        } else {
-          this.showCitySelectInputField = false;
+          if (stateId) {
+            this.setStateId(stateId);
+            this.showCitySelectInputField = true;
+          } else {
+            this.showCitySelectInputField = false;
+          }
         }
       });
     
     this.hivSurveyForm
-      .get('city')
+      .get('location.city')
       .valueChanges
       .subscribe((value) => {
+        if (value) {
+          // get CityID
+          let cityId:string = this.getCityId(this.cities, value);
 
-        console.log('cityform: ', value);
-        // get CityID
-        let cityId:string = this.getCityId(this.cities, value);
+          // fetch districts by countryId, stateID and cityId
+          this.hivSurveyService.fetchDistricts(this.countryIdSelected, this.stateIdSelected, cityId );
 
-        // fetch states
-        this.hivSurveyService.fetchDistricts(this.countryIdSelected, this.stateIdSelected, cityId );
-
-        if (cityId) {
-          this.setCityId(cityId);
-          this.showDistrictSelectInputField = true;
-        } else {
-          this.showDistrictSelectInputField = false;
+          if (cityId) {
+            this.setCityId(cityId);
+            this.showDistrictSelectInputField = true;
+          } else {
+            this.showDistrictSelectInputField = false;
+          }
         }
       });
 
