@@ -5,6 +5,8 @@ import { map, count } from 'rxjs/operators';
 import { Country } from './country.model';
 import { HivSurvey } from './hiv-survey.model';
 import { State } from './state.model';
+import { City } from './city.model';
+import { District } from './district.model';
 
 @Injectable()
 export class HivSurveyService {
@@ -14,6 +16,12 @@ export class HivSurveyService {
 
     private availableStates: State[] = [];
     statesChanged = new Subject<State[]>();
+
+    private availableCities: City[] = [];
+    citiesChanged = new Subject<City[]>();
+
+    private availableDistricts: District[] = [];
+    districtsChanged = new Subject<District[]>();
 
     constructor(private db: AngularFirestore) {}
 
@@ -36,9 +44,9 @@ export class HivSurveyService {
             });
     }
 
-    fetchStates(id:string): void {
+    fetchStates(countryId:string): void {
         this.db
-            .collection('countries/'+id+'/states')
+            .collection('countries/'+countryId+'/states')
             .snapshotChanges()
             .pipe(map((docArray) => {
                 return docArray.map((doc) => {
@@ -59,9 +67,9 @@ export class HivSurveyService {
         return this.availableStates;
     }
 
-    getCountries() {
-        return this.db
-            .collection('countries')
+    fetchCities(countryId:string, stateId:string): void {
+        this.db
+            .collection('countries/'+countryId+'/states/'+stateId+'/cities')
             .snapshotChanges()
             .pipe(map((docArray) => {
                 return docArray.map((doc) => {
@@ -71,8 +79,29 @@ export class HivSurveyService {
                     };
                 });
             }))
-            .subscribe((result) => {
-                console.log(result);
+            .subscribe((cities: City[]) => {
+                console.log('fetchCities(id): ',cities);
+                this.availableCities = cities;
+                this.citiesChanged.next([...this.availableCities]);
+            });
+    }
+
+    fetchDistricts(countryId:string, stateId:string, cityId:string): void {
+        this.db
+            .collection('countries/'+countryId+'/states/'+stateId+'/cities/'+cityId+'/districts')
+            .snapshotChanges()
+            .pipe(map((docArray) => {
+                return docArray.map((doc) => {
+                    return { 
+                        id: doc.payload.doc.id,
+                        ...doc.payload.doc.data()
+                    };
+                });
+            }))
+            .subscribe((districts: District[]) => {
+                console.log('fetchDistricts(id): ',districts);
+                this.availableDistricts = districts;
+                this.districtsChanged.next([...this.availableDistricts]);
             });
     }
 
@@ -113,41 +142,4 @@ export class HivSurveyService {
             )
     }
 
-    getCountryArgentina() {
-        return this.db
-            .collection('countries', ref => ref.where('name', '==', 'Argentina'))
-            .snapshotChanges()
-            .pipe(map((docArray) => {
-                return docArray.map((doc) => {
-                    return {
-                        id: doc.payload.doc.id,
-                        ...doc.payload.doc.data()
-                    };
-                });
-            }));
-    }
-
-    // getCountryId() {
-    //     return this.db
-    //         .collection('countries', ref => ref.where('name', '==', 'Argentina'))
-    //         .snapshotChanges()
-    //         .pipe(map((docArray) => docArray.map((doc) => {
-    //             const id = doc.payload.doc.id;
-    //             return id;
-    //         })));
-    // }
-
-    getStates(id:string) {
-        return this.db
-            .collection('countries/'+id+'/states')
-            .snapshotChanges()
-            .pipe(map((docArray) => {
-                return docArray.map((doc) => {
-                    return {
-                        id: doc.payload.doc.id,
-                        ...doc.payload.doc.data()
-                    };
-                });
-            }));
-    }
 }

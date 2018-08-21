@@ -108,15 +108,35 @@
       </mat-form-field>
       
       <mat-form-field
-        *ngIf="showStatesSelectInputField == true">
-          <mat-select 
-            placeholder="Ingrese la provincia"
-            formControlName="state">
-            <mat-option *ngFor="let state of states" [value]="state.alias">
-              {{ state.alias }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field><!-- Ubicacion -->
+        *ngIf="showStateSelectInputField == true">
+        <mat-select 
+          placeholder="Ingrese la provincia"
+          formControlName="state">
+          <mat-option *ngFor="let state of states" [value]="state.name">
+            {{ state.alias }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field
+        *ngIf="showCitySelectInputField == true">
+        <mat-select 
+          placeholder="Ingrese la ciudad"
+          formControlName="city">
+          <mat-option *ngFor="let city of cities" [value]="city.name">
+            {{ city.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field
+        *ngIf="showDistrictSelectInputField == true">
+        <mat-select 
+          placeholder="Ingrese el barrio"
+          formControlName="district">
+          <mat-option *ngFor="let district of districts" [value]="district.name">
+            {{ district.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field><!-- Ubicacion -->
     </section>
 
     

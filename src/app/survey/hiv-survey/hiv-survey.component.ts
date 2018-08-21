@@ -9,9 +9,12 @@ import {
 import { HivSurvey } from './hiv-survey.model';
 import { Country } from './country.model';
 import { State } from './state.model';
+import { City } from './city.model';
+import { District } from './district.model';
 import { HivSurveyService } from './hiv-survey.service';
 import { Observable, Subscription } from 'rxjs';
 import { delay } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-hiv-survey',
@@ -29,7 +32,19 @@ export class HivSurveyComponent implements OnInit, OnDestroy {
   states: State[];
   stateSubscription: Subscription;
 
-  showStatesSelectInputField: boolean = false;
+  cities: City[];
+  citySubscription: Subscription;
+
+  districts: District[];
+  districtSubscription: Subscription;
+
+  showStateSelectInputField: boolean = false;
+  showCitySelectInputField: boolean = false;
+  showDistrictSelectInputField: boolean = false;
+
+  private countryIdSelected: string;
+  private stateIdSelected: string;
+  private cityIdSelected: string;
 
   // hivSurveyForm = new FormGroup({
   //   email: new FormControl('', Validators.email),
@@ -118,7 +133,9 @@ export class HivSurveyComponent implements OnInit, OnDestroy {
       civilStatus: new FormControl('', Validators.required),
       instruction: new FormControl('', Validators.required),
       country: new FormControl('', Validators.required),
-      state: new FormControl('', Validators.required)
+      state: new FormControl('', Validators.required),
+      city: new FormControl('', Validators.required),
+      district: new FormControl('', Validators.required)
     });
 
     this.countrySubscription = this.hivSurveyService.countriesChanged
@@ -130,6 +147,18 @@ export class HivSurveyComponent implements OnInit, OnDestroy {
     this.stateSubscription = this.hivSurveyService.statesChanged
       .subscribe((availableStates) => {
         this.states = availableStates;
+        // console.log('countries: ',this.countries);
+      });
+    
+    this.citySubscription = this.hivSurveyService.citiesChanged
+      .subscribe((availableCities) => {
+        this.cities = availableCities;
+        // console.log('countries: ',this.countries);
+      });
+
+    this.districtSubscription = this.hivSurveyService.districtsChanged
+      .subscribe((availableDistricts) => {
+        this.districts = availableDistricts;
         // console.log('countries: ',this.countries);
       });
     
@@ -146,11 +175,49 @@ export class HivSurveyComponent implements OnInit, OnDestroy {
         this.hivSurveyService.fetchStates(countryId);
 
         if (countryId) {
-          this.showStatesSelectInputField = true;
+          this.setCoutryId(countryId);
+          this.showStateSelectInputField = true;
         } else {
-          this.showStatesSelectInputField = false;
+          this.showStateSelectInputField = false;
         }
-        
+      });
+    
+    this.hivSurveyForm
+      .get('state')
+      .valueChanges
+      .subscribe((value) => {
+        // get StateID
+        let stateId:string = this.getStateId(this.states, value);
+
+        // fetch states
+        this.hivSurveyService.fetchCities(this.countryIdSelected, stateId );
+
+        if (stateId) {
+          this.setStateId(stateId);
+          this.showCitySelectInputField = true;
+        } else {
+          this.showCitySelectInputField = false;
+        }
+      });
+    
+    this.hivSurveyForm
+      .get('city')
+      .valueChanges
+      .subscribe((value) => {
+
+        console.log('cityform: ', value);
+        // get CityID
+        let cityId:string = this.getCityId(this.cities, value);
+
+        // fetch states
+        this.hivSurveyService.fetchDistricts(this.countryIdSelected, this.stateIdSelected, cityId );
+
+        if (cityId) {
+          this.setCityId(cityId);
+          this.showDistrictSelectInputField = true;
+        } else {
+          this.showDistrictSelectInputField = false;
+        }
       });
 
     //test
@@ -167,13 +234,33 @@ export class HivSurveyComponent implements OnInit, OnDestroy {
   }
 
   getCountryId(countries: Country[], name: string): string {
-    return this.getCountryByName(countries, name).id;    
+    return this.getLocationByName(countries, name).id;    
   }
 
-  private getCountryByName(countries: Country[], name: string): Country {
-    for (let index = 0; index < countries.length; index++) {
-      if (countries[index].name === name) {
-        return countries[index];
+  setCoutryId(value: string):void {
+    this.countryIdSelected = value;
+  }
+
+  getStateId(states: State[], name: string): string {
+    return this.getLocationByName(states, name).id;    
+  }
+
+  setStateId(value: string):void {
+    this.stateIdSelected = value;
+  }
+
+  getCityId(cities: City[], name: string): string {
+    return this.getLocationByName(cities, name).id;    
+  }
+
+  setCityId(value: string):void {
+    this.cityIdSelected = value;
+  }
+
+  private getLocationByName(location: any[], name: string): any {
+    for (let index = 0; index < location.length; index++) {
+      if (location[index].name === name) {
+        return location[index];
       }
     }
   }
@@ -181,6 +268,8 @@ export class HivSurveyComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.countrySubscription.unsubscribe();
     this.stateSubscription.unsubscribe();
+    this.citySubscription.unsubscribe();
+    this.districtSubscription.unsubscribe();
   }
 
 }
