@@ -7,6 +7,7 @@ import { HivSurvey } from './hiv-survey.model';
 import { State } from './state.model';
 import { City } from './city.model';
 import { District } from './district.model';
+import { FormGroup } from '@angular/forms';
 
 @Injectable()
 export class HivSurveyService {
@@ -101,6 +102,10 @@ export class HivSurveyService {
             });
     }
 
+    addSurvey(hivSurvey: HivSurvey) {
+        this.addVihSurveyToDatabase(hivSurvey);
+    }
+
     getTest(): void {
         this.db
             .collection('countries')
@@ -136,6 +141,12 @@ export class HivSurveyService {
                     console.log('test2: ', result);
                 }
             )
+    }
+
+    private addVihSurveyToDatabase(hivSurvey: HivSurvey) {
+        this.db
+            .collection('vih-survey')
+            .add(hivSurvey);
     }
 
 }

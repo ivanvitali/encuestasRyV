@@ -319,6 +319,8 @@ export class HivSurveyComponent implements OnInit, OnDestroy {
       delete hivSurveyForm.value['email'];
     }
     console.log(hivSurveyForm.value);
+    this.hivSurveyService.addSurvey(
+      { ...this.hivSurveyForm.value});
   }
 
   getCountryId(countries: Country[], name: string): string {
