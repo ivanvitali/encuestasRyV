@@ -24,7 +24,7 @@ import { delay } from 'rxjs/operators';
 export class HivSurveyComponent implements OnInit, OnDestroy {
 
   hivSurveyForm: FormGroup;
-  hivSurvey: HivSurvey = new HivSurvey();
+  hivSurvey: HivSurvey;
 
   countries: Country[];
   countrySubscription: Subscription;
