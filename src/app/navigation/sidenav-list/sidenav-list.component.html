@@ -11,6 +11,10 @@
     <mat-icon>assignment</mat-icon>
     <span class="nav-caption">Encuesta</span>
   </a>
+  <a mat-list-item routerLink="/statistics" (click)="onClose()" *ngIf="isAuth">
+    <mat-icon>pie_chart</mat-icon>
+    <span class="nav-caption">Estadistica</span>
+  </a>
   <mat-list-item>
     <button mat-icon-button (click)="onLogout()" *ngIf="isAuth">
       <mat-icon>eject</mat-icon>

@@ -23,6 +23,9 @@
           <a routerLink="/survey">Encuesta</a>
         </li>
         <li *ngIf="isAuth">
+          <a routerLink="/statistics">Estadistica</a>
+        </li>
+        <li *ngIf="isAuth">
           <a style="cursor: pointer" (click)="onLogout()">Salir</a>
         </li>
       </ul>
