@@ -24,9 +24,12 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
 // services
 import { AuthService } from './auth/auth.service';
 import { HivSurveyService } from './survey/hiv-survey/hiv-survey.service';
+import { VihStatisticsService } from './statistics/vih-statistics/vih-statistics.service';
 
 // environment
 import { environment } from '../environments/environment';
+import { StatisticsComponent } from './statistics/statistics.component';
+import { VihStatisticsComponent } from './statistics/vih-statistics/vih-statistics.component';
 
 
 @NgModule({
@@ -39,7 +42,9 @@ import { environment } from '../environments/environment';
     AddictionSurveyComponent,
     WelcomeComponent,
     HeaderComponent,
-    SidenavListComponent
+    SidenavListComponent,
+    StatisticsComponent,
+    VihStatisticsComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +60,8 @@ import { environment } from '../environments/environment';
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'es-LA'},
     AuthService,
-    HivSurveyService
+    HivSurveyService,
+    VihStatisticsService
   ],
   bootstrap: [AppComponent]
 })
