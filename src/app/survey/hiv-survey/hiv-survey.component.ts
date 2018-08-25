@@ -119,6 +119,73 @@ export class HivSurveyComponent implements OnInit, OnDestroy {
     }
   ];
 
+  hivInformationGetWays = [
+    {
+      name: 'Familia',
+      value: 'family'
+    },
+    {
+      name: 'Universidad',
+      value: 'university'
+    },
+    {
+      name: 'Folletos',
+      value: 'brochure'
+    },
+    {
+      name: 'Internet',
+      value: 'internet'
+    },
+    {
+      name: 'Revistas',
+      value: 'magazine'
+    },
+    {
+      name: 'Tv',
+      value: 'tv'
+    },
+    {
+      name: 'Institucion',
+      value: 'institution'
+    },
+    {
+      name: 'Escuela',
+      value: 'school'
+    },
+    {
+      name: 'Inv Personal',
+      value: 'personalResearch'
+    },
+    {
+      name: 'Amigo',
+      value: 'friend'
+    },
+    {
+      name: 'Radio',
+      value: 'radio'
+    },
+    {
+      name: 'Libro',
+      value: 'book'
+    },
+    {
+      name: 'Hospital',
+      value: 'hospital'
+    },
+    {
+      name: 'Via publica',
+      value: 'publicRoad'
+    },
+    {
+      name: 'Diario',
+      value: 'newspaper'
+    },
+    {
+      name: 'Otra',
+      value: 'other'
+    }
+  ]
+
   private isEmptyFieldEmail(form: FormGroup) {
     return (form.get('email').value === "" || form.get('email').value === null) ? true : false;
   }
@@ -137,7 +204,25 @@ export class HivSurveyComponent implements OnInit, OnDestroy {
         state: new FormControl('', Validators.required),
         city: new FormControl('', Validators.required),
         district: new FormControl('', Validators.required)
-      })
+      }),
+      answer1: new FormGroup({
+        family: new FormControl(false),
+        university: new FormControl(false),
+        brochure: new FormControl(false),
+        internet: new FormControl(false),
+        magazine: new FormControl(false),
+        tv: new FormControl(false),
+        institution: new FormControl(false),
+        school: new FormControl(false),
+        personalResearch: new FormControl(false),
+        friend: new FormControl(false),
+        radio: new FormControl(false),
+        book: new FormControl(false),
+        hospital: new FormControl(false),
+        publicRoad: new FormControl(false),
+        newspaper: new FormControl(false),
+        other: new FormControl(false)
+      }, Validators.required)
       
     });
 

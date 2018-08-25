@@ -149,57 +149,18 @@
     <section class="form-group">
         <h3>Encuesta ViH</h3>
         <!-- Pregunta 1 -->
-        <h4>1. A traves de que vias recibis informacion sobre VIH-SIDA?</h4>
-        <ul class="form-question-1">
-          <li>
-            <mat-checkbox value="Familia">Familia</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox value="Universidad">Universidad</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox value="Folletos">Folletos</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox value="Internet">Internet</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox value="Revistas">Revistas</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox value="TV">TV</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox value="Institucion">Institucion</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox value="Escuela">Escuela</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox value="Investigacion Personal">Inv. Personal</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox value="Amigo">Amigo</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox value="Radio">Radio</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox value="Libros">Libros</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox value="Hospital">Hospital</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox value="Via Publica">Via Publica</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox value="Diarios">Diarios</mat-checkbox>
-          </li>
-          <li>
-            <mat-checkbox value="Otra">Otra</mat-checkbox>
-          </li>
-        </ul><!-- Pregunta 1 -->
+        <section
+          formGroupName="answer1">
+          <h4>1. A traves de que vias recibis informacion sobre VIH-SIDA?</h4>
+          <ul class="form-question-1">
+            <li *ngFor = "let getInfo of hivInformationGetWays">
+              <mat-checkbox
+                [formControlName]="getInfo.value"
+                [value] ="getInfo.value"> {{ getInfo.name }} </mat-checkbox>
+            </li>
+          </ul>
+        </section>
+        <!-- Pregunta 1 -->
   
         <!-- Pregunta 2 -->
         <h4>2. Crees que Vih y Sida es lo mismo?</h4>
