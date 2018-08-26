@@ -102,51 +102,112 @@ export class HivSurveyService {
             });
     }
 
-    addSurvey(hivSurvey: HivSurvey) {
-        this.addVihSurveyToDatabase(hivSurvey);
+    // addSurvey(hivSurvey: HivSurvey) {
+    //     this.addVihSurveyToDatabase(hivSurvey);
+    // }
+
+    // private addVihSurveyToDatabase(hivSurvey: HivSurvey) {
+    //     this.db
+    //         .collection('vih-survey')
+    //         .add(hivSurvey);
+    // }
+
+    addVihSurveyFiltered(vihSurvey: HivSurvey, gender: string) {
+        if (gender === 'Masculino') {
+            this.addManVihSurvey(vihSurvey);
+        } else {
+            this.addWomanVihSurvey(vihSurvey);
+        }
+    }
+    
+    private addManVihSurvey(vihSurvey: HivSurvey) {
+        if (vihSurvey.age < 15) {
+            this.addManLower15VihSurvey(vihSurvey);
+        } else if (vihSurvey.age >= 15 && vihSurvey.age < 18) {
+            this.addManBetween1517VihSurvey(vihSurvey);
+        } else if (vihSurvey.age >= 18 && vihSurvey.age < 22) {
+            this.addManBetween1821VihSurvey(vihSurvey);
+        } else if (vihSurvey.age >= 22 && vihSurvey.age < 31) {
+            this.addManBetween2230VihSurvey(vihSurvey);
+        } else {
+            this.addManGreater30VihSurvey(vihSurvey);
+        }
+        console.log('se ingreso con exito la encuesta filtrada! addManVihSurvey');
     }
 
-    getTest(): void {
+    private addManLower15VihSurvey(vihSurvey: HivSurvey) {
         this.db
-            .collection('countries')
-            .valueChanges()
-            .subscribe(
-                (result) => {
-                    console.log('test: ', result);
-                }
-            )
+            .collection('vih-survey-filter/man/12-15')
+            .add(vihSurvey);
     }
 
-    getTest2(): void {
+    private addManBetween1517VihSurvey(vihSurvey: HivSurvey) {
         this.db
-            .collection('countries')
-            .snapshotChanges()
-            .pipe(map(
-                (docArray) => {
-                    return docArray.map(
-                        (doc) => {
-                            return {
-                                id: doc.payload.doc.id,
-                                ...doc.payload.doc.data()
-                            }
-                        }
-                    )
-                }
-            ))
-            .subscribe(
-                (result) => {
-                    // for (const res of result) {
-                    //     console.log(res.payload.doc.data());
-                    // }
-                    console.log('test2: ', result);
-                }
-            )
+            .collection('vih-survey-filter/man/15-17')
+            .add(vihSurvey);
     }
 
-    private addVihSurveyToDatabase(hivSurvey: HivSurvey) {
+    private addManBetween1821VihSurvey(vihSurvey: HivSurvey) {
         this.db
-            .collection('vih-survey')
-            .add(hivSurvey);
+            .collection('vih-survey-filter/man/18-21')
+            .add(vihSurvey);
+    }
+
+    private addManBetween2230VihSurvey(vihSurvey: HivSurvey) {
+        this.db
+            .collection('vih-survey-filter/man/22-30')
+            .add(vihSurvey);
+    }
+
+    private addManGreater30VihSurvey(vihSurvey: HivSurvey) {
+        this.db
+            .collection('vih-survey-filter/man/31-99')
+            .add(vihSurvey);
+    }
+
+    private addWomanVihSurvey(vihSurvey: HivSurvey) {
+        if (vihSurvey.age < 15) {
+            this.addWomanLower15VihSurvey(vihSurvey);
+        } else if (vihSurvey.age >= 15 && vihSurvey.age < 18) {
+            this.addWomanBetween1517VihSurvey(vihSurvey);
+        } else if (vihSurvey.age >= 18 && vihSurvey.age < 22) {
+            this.addWomanBetween1821VihSurvey(vihSurvey);
+        } else if (vihSurvey.age >= 22 && vihSurvey.age < 31) {
+            this.addWomanBetween2230VihSurvey(vihSurvey);
+        } else {
+            this.addWomanGreater30VihSurvey(vihSurvey);
+        }
+        console.log('se ingreso con exito la encuesta filtrada! addWomanVihSurvey');
+    }
+
+    private addWomanLower15VihSurvey(vihSurvey: HivSurvey) {
+        this.db
+            .collection('vih-survey-filter/woman/12-15')
+            .add(vihSurvey);
+    }
+
+    private addWomanBetween1517VihSurvey(vihSurvey: HivSurvey) {
+        this.db
+            .collection('vih-survey-filter/woman/15-17')
+            .add(vihSurvey);
+    }
+
+    private addWomanBetween1821VihSurvey(vihSurvey: HivSurvey) {
+        this.db
+            .collection('vih-survey-filter/woman/18-21')
+            .add(vihSurvey);
+    }
+
+    private addWomanBetween2230VihSurvey(vihSurvey: HivSurvey) {
+        this.db
+            .collection('vih-survey-filter/woman/22-30')
+            .add(vihSurvey);
+    }
+
+    private addWomanGreater30VihSurvey(vihSurvey: HivSurvey) {
+        this.db
+            .collection('vih-survey-filter/woman/31-99')
+            .add(vihSurvey);
     }
 
 }

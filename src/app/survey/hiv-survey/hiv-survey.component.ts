@@ -307,10 +307,6 @@ export class HivSurveyComponent implements OnInit, OnDestroy {
           }
         }
       });
-
-    //test
-    this.hivSurveyService.getTest();
-    this.hivSurveyService.getTest2();
   }
 
   onSubmit(hivSurveyForm: FormGroup) {
@@ -319,8 +315,10 @@ export class HivSurveyComponent implements OnInit, OnDestroy {
       delete hivSurveyForm.value['email'];
     }
     console.log(hivSurveyForm.value);
-    this.hivSurveyService.addSurvey(
-      { ...this.hivSurveyForm.value});
+    // this.hivSurveyService.addSurvey(
+    //   { ...this.hivSurveyForm.value});
+
+    this.hivSurveyService.addVihSurveyFiltered(hivSurveyForm.value, hivSurveyForm.get('gender').value);
   }
 
   getCountryId(countries: Country[], name: string): string {
