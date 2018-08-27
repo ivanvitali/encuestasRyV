@@ -25,6 +25,7 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
 import { AuthService } from './auth/auth.service';
 import { HivSurveyService } from './survey/hiv-survey/hiv-survey.service';
 import { VihStatisticsService } from './statistics/vih-statistics/vih-statistics.service';
+import { Answer1PieService } from './chart/answer1-pie/answer1-pie.service';
 
 // environment
 import { environment } from '../environments/environment';
@@ -65,7 +66,8 @@ import { Answer1PieComponent } from './chart/answer1-pie/answer1-pie.component';
     {provide: MAT_DATE_LOCALE, useValue: 'es-LA'},
     AuthService,
     HivSurveyService,
-    VihStatisticsService
+    VihStatisticsService,
+    Answer1PieService
   ],
   bootstrap: [AppComponent]
 })

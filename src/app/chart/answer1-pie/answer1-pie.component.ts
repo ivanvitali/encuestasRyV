@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as CanvasJS from '../../../assets/js/canvasjs.min';
 import { VihStatisticsService } from '../../statistics/vih-statistics/vih-statistics.service';
-import { Answer1 } from '../../statistics/vih-statistics/answer1.model';
 import { Subscription } from 'rxjs';
+import { PieData } from './pie-data.model';
 
 @Component({
   selector: 'app-answer1-pie',
@@ -13,7 +13,7 @@ export class Answer1PieComponent implements OnInit, OnDestroy {
 
   constructor(private vihStatisticsService: VihStatisticsService) { }
 
-  answer1Man1517Statistics: Answer1[];
+  answer1Man1517Statistics: PieData[];
   answer1Man1517Subscription: Subscription;
 
   ngOnInit() {
@@ -25,7 +25,7 @@ export class Answer1PieComponent implements OnInit, OnDestroy {
         this.answer1Man1517Statistics = availableAnswer1Statistics;
 
         let chartMan1517 = new CanvasJS.Chart("chartContainer", {
-          theme: "light2",
+          theme: "dark2", // "light2", "light1", "dark1", "dark2"
           animationEnabled: true,
           exportEnabled: true,
           title:{
@@ -56,7 +56,7 @@ export class Answer1PieComponent implements OnInit, OnDestroy {
     
 
     let chartMan1821 = new CanvasJS.Chart("chartContainer2", {
-      theme: "light2",
+      theme: "dark2",
       animationEnabled: true,
       exportEnabled: true,
       title:{
@@ -83,7 +83,7 @@ export class Answer1PieComponent implements OnInit, OnDestroy {
     chartMan1821.render();
 
     let chartMan2230 = new CanvasJS.Chart("chartContainer3", {
-      theme: "light2",
+      theme: "dark2",
       animationEnabled: true,
       exportEnabled: true,
       title:{
