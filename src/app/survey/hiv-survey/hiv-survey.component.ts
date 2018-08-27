@@ -129,7 +129,7 @@ export class HivSurveyComponent implements OnInit, OnDestroy {
       value: 'university'
     },
     {
-      name: 'Folletos',
+      name: 'Folleto',
       value: 'brochure'
     },
     {
@@ -137,7 +137,7 @@ export class HivSurveyComponent implements OnInit, OnDestroy {
       value: 'internet'
     },
     {
-      name: 'Revistas',
+      name: 'Revista',
       value: 'magazine'
     },
     {

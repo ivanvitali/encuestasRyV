@@ -30,6 +30,8 @@ import { VihStatisticsService } from './statistics/vih-statistics/vih-statistics
 import { environment } from '../environments/environment';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { VihStatisticsComponent } from './statistics/vih-statistics/vih-statistics.component';
+import { ChartComponent } from './chart/chart.component';
+import { Answer1PieComponent } from './chart/answer1-pie/answer1-pie.component';
 
 
 @NgModule({
@@ -44,7 +46,9 @@ import { VihStatisticsComponent } from './statistics/vih-statistics/vih-statisti
     HeaderComponent,
     SidenavListComponent,
     StatisticsComponent,
-    VihStatisticsComponent
+    VihStatisticsComponent,
+    ChartComponent,
+    Answer1PieComponent
   ],
   imports: [
     BrowserModule,
