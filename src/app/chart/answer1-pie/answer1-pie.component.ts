@@ -81,6 +81,33 @@ export class Answer1PieComponent implements OnInit, OnDestroy {
       
     
     chartMan1821.render();
+
+    let chartMan2230 = new CanvasJS.Chart("chartContainer3", {
+      theme: "light2",
+      animationEnabled: true,
+      exportEnabled: true,
+      title:{
+        text: "Hombres 22-30 años"
+      },
+      data: [{
+        type: "pie",
+        showInLegend: true,
+        toolTipContent: "<b>{name}</b>: ${y} (#percent%)",
+        indexLabel: "{name} - #percent%",
+        dataPoints: [
+          { y: 450, name: "Food" },
+          { y: 120, name: "Insurance" },
+          { y: 300, name: "Traveling" },
+          { y: 800, name: "Housing" },
+          { y: 150, name: "Education" },
+          { y: 150, name: "Shopping"},
+          { y: 250, name: "Others" }
+        ]
+      }]
+    });
+      
+    
+    chartMan2230.render();
   }
 
   ngOnDestroy() {
