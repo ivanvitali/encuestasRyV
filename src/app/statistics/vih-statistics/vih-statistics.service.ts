@@ -16,8 +16,8 @@ export class VihStatisticsService {
   answer1FamilyMan1517SurveyNumberChanged = new Subject<number>();
   answer1SchoolMan1517SurveyNumberChanged = new Subject<number>();
 
-  answer1Statistics: Answer1[];
-  answer1StatisticsChanged = new Subject<Answer1[]>();
+  // answer1Statistics: Answer1[];
+  // answer1StatisticsChanged = new Subject<Answer1[]>();
 
   
 
@@ -206,23 +206,23 @@ export class VihStatisticsService {
   //       .add(hivSurvey);
   // }
 
-  fetchMan1517Answer1Statistic(): void {
-    this.db
-        .collection('/vih-statistics/man15-17/answer1')
-        .snapshotChanges()
-        .pipe(map((docArray) => {
-            return docArray.map((doc) => {
-                return { 
-                    //id: doc.payload.doc.id,
-                    ...doc.payload.doc.data()
-                };
-            });
-        }))
-        .subscribe((answer1: Answer1[]) => {
-            this.answer1Statistics = answer1;
-            this.answer1StatisticsChanged.next([...this.answer1Statistics]);
-        });
-  }
+  // fetchMan1517Answer1Statistic(): void {
+  //   this.db
+  //       .collection('/vih-statistics/man15-17/answer1')
+  //       .snapshotChanges()
+  //       .pipe(map((docArray) => {
+  //           return docArray.map((doc) => {
+  //               return { 
+  //                   //id: doc.payload.doc.id,
+  //                   ...doc.payload.doc.data()
+  //               };
+  //           });
+  //       }))
+  //       .subscribe((answer1: Answer1[]) => {
+  //           this.answer1Statistics = answer1;
+  //           this.answer1StatisticsChanged.next([...this.answer1Statistics]);
+  //       });
+  // }
 
   updateStatisticAnswer1(countNumber: number, genderRange: string, docId: string) {
     this.db

@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as CanvasJS from '../../../assets/js/canvasjs.min';
-import { VihStatisticsService } from '../../statistics/vih-statistics/vih-statistics.service';
 import { Subscription } from 'rxjs';
 import { PieData } from './pie-data.model';
+import { Answer1PieService } from './answer1-pie.service';
 
 @Component({
   selector: 'app-answer1-pie',
@@ -11,16 +11,92 @@ import { PieData } from './pie-data.model';
 })
 export class Answer1PieComponent implements OnInit, OnDestroy {
 
-  constructor(private vihStatisticsService: VihStatisticsService) { }
+  constructor(private answer1PieService: Answer1PieService) { }
 
   answer1Man1517Statistics: PieData[];
-  answer1Man1517Subscription: Subscription;
+  answer1Man1517StatisticsSubscription: Subscription;
+
+  private vihSurveyMan1517 = {
+    name: 'Familia',
+    value: 'family',
+    sourceCollection: '/vih-survey-filter/man/15-17',
+    destinyCollection: '/vih-statistics/man15-17/answer1'
+  };
+
+  private answer1Options = [
+    {
+      docId: 'book',
+      position: 'answer1.book'
+    },
+    {
+      docId: 'brochure',
+      position: 'answer1.brochure'
+    },
+    {
+      docId: 'family',
+      position: 'answer1.family'
+    },
+    {
+      docId: 'friend',
+      position: 'answer1.friend'
+    },
+    {
+      docId: 'hospital',
+      position: 'answer1.hospital'
+    },
+    {
+      docId: 'institution',
+      position: 'answer1.institution'
+    },
+    {
+      docId: 'internet',
+      position: 'answer1.internet'
+    },
+    {
+      docId: 'magazine',
+      position: 'answer1.magazine'
+    },
+    {
+      docId: 'newspaper',
+      position: 'answer1.newspaper'
+    },
+    {
+      docId: 'other',
+      position: 'answer1.other'
+    },
+    {
+      docId: 'personalResearch',
+      position: 'answer1.personalResearch'
+    },
+    {
+      docId: 'publicRoad',
+      position: 'answer1.publicRoad'
+    },
+    {
+      docId: 'radio',
+      position: 'answer1.radio'
+    },
+    {
+      docId: 'school',
+      position: 'answer1.school'
+    },
+    {
+      docId: 'tv',
+      position: 'answer1.tv'
+    },
+    {
+      docId: 'university',
+      position: 'answer1.university'
+    }
+  ];
 
   ngOnInit() {
 
-    this.vihStatisticsService.fetchMan1517Answer1Statistic();
+    this.answer1PieService.getAndUpdateVihStatisticAnswer1(this.answer1Options, this.vihSurveyMan1517);
 
-    this.answer1Man1517Subscription = this.vihStatisticsService.answer1StatisticsChanged
+    this.answer1PieService.fetchAnswer1Man1517Statistic();
+
+    this.answer1Man1517StatisticsSubscription = this.answer1PieService.answer1Man1517StatisticsChanged
       .subscribe((availableAnswer1Statistics) => {
         this.answer1Man1517Statistics = availableAnswer1Statistics;
 
@@ -111,6 +187,6 @@ export class Answer1PieComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.answer1Man1517Subscription.unsubscribe();
+    this.answer1Man1517StatisticsSubscription.unsubscribe();
   }
 }
