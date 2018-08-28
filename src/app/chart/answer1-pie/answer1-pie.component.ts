@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as CanvasJS from '../../../assets/js/canvasjs.min';
+import { AmChartsService, AmChart } from '@amcharts/amcharts3-angular';
 import { Subscription } from 'rxjs';
 import { PieData } from './pie-data.model';
 import { Answer1PieService } from './answer1-pie.service';
@@ -11,7 +12,9 @@ import { Answer1PieService } from './answer1-pie.service';
 })
 export class Answer1PieComponent implements OnInit, OnDestroy {
 
-  constructor(private answer1PieService: Answer1PieService) { }
+  private chart: AmChart;
+
+  constructor(private answer1PieService: Answer1PieService, private AmCharts: AmChartsService) { }
 
   answer1Man1517Statistics: PieData[];
   answer1Man1517StatisticsSubscription: Subscription;
@@ -100,19 +103,19 @@ export class Answer1PieComponent implements OnInit, OnDestroy {
       .subscribe((availableAnswer1Statistics) => {
         this.answer1Man1517Statistics = availableAnswer1Statistics;
 
-        let chartMan1517 = new CanvasJS.Chart("chartContainer", {
-          theme: "dark2", // "light2", "light1", "dark1", "dark2"
-          animationEnabled: true,
-          exportEnabled: true,
-          title:{
-            text: "Hombres 15-17 años"
-          },
-          data: [{
-            type: "pie",
-            showInLegend: true,
-            toolTipContent: "<b>{name}</b>: ${y} (#percent%)",
-            indexLabel: "{name} - #percent%",
-            dataPoints: this.answer1Man1517Statistics
+        //let chartMan1517 = new CanvasJS.Chart("chartContainer", {
+          //theme: "dark2", // "light2", "light1", "dark1", "dark2"
+          //animationEnabled: true,
+          //exportEnabled: true,
+         // title:{
+          //  text: "Hombres 15-17 años"
+         // },
+          //data: [{
+          //  type: "pie",
+          //  showInLegend: true,
+          //  toolTipContent: "<b>{name}</b>: ${y} (#percent%)",
+         //   indexLabel: "{name} - #percent%",
+          //  dataPoints: this.answer1Man1517Statistics
             // dataPoints: [
             //   { y: 1, name: "Familia" },
             //   { y: 1, name: "Escuela" },
@@ -122,13 +125,59 @@ export class Answer1PieComponent implements OnInit, OnDestroy {
             //   { y: 0, name: "Shopping"},
             //   { y: 0, name: "Others" }
             // ]
-          }]
+         // }]
+       // });
+
+        //chartMan1517.render();
+
+        this.chart = this.AmCharts.makeChart("chartdiv", {
+          "labelsEnabled": true,
+          "autoMargins": false,
+          "marginTop": 0,
+          "marginBottom": 0,
+          "marginLeft": 0,
+          "marginRight": 0,
+          "pullOutRadius": 0,
+          "type": "pie",
+          "theme": "light",
+          "outlineColor": "",
+          "dataProvider": this.answer1Man1517Statistics,
+          "valueField": "y",
+          "titleField": "name",
+          "balloon": {
+            "fixedPosition": true
+          }
         });
 
-        chartMan1517.render();
+        this.chart = this.AmCharts.makeChart("chartdiv1", {
+          "type": "pie",
+          "theme": "light",
+          "outlineColor": "",
+          "dataProvider": this.answer1Man1517Statistics,
+          "valueField": "y",
+          "titleField": "name",
+          "balloon": {
+            "fixedPosition": true
+          }
+        });
 
+        this.chart = this.AmCharts.makeChart("chartdiv2", {
+          "type": "pie",
+          "theme": "light",
+          "outlineColor": "",
+          "dataProvider": this.answer1Man1517Statistics,
+          "valueField": "y",
+          "titleField": "name",
+          "balloon": {
+            "fixedPosition": true
+          }
+        });
+
+        
+
+        
       });
-
+      
     
 
     let chartMan1821 = new CanvasJS.Chart("chartContainer2", {
@@ -156,7 +205,7 @@ export class Answer1PieComponent implements OnInit, OnDestroy {
     });
       
     
-    chartMan1821.render();
+    //chartMan1821.render();
 
     let chartMan2230 = new CanvasJS.Chart("chartContainer3", {
       theme: "dark2",
@@ -183,10 +232,15 @@ export class Answer1PieComponent implements OnInit, OnDestroy {
     });
       
     
-    chartMan2230.render();
+    //chartMan2230.render();
+
+    
   }
 
   ngOnDestroy() {
     this.answer1Man1517StatisticsSubscription.unsubscribe();
+    if (this.chart) {
+      this.AmCharts.destroyChart(this.chart);
+    }
   }
 }
