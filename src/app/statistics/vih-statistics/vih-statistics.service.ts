@@ -233,6 +233,4 @@ export class VihStatisticsService {
       });
   }
   
-
-
 }

@@ -15,6 +15,18 @@ export class Answer1PieService {
   answer1Man1821Statistics: PieData[];
   answer1Man1821StatisticsChanged = new Subject<PieData[]>();
 
+  answer1Man2230Statistics: PieData[];
+  answer1Man2230StatisticsChanged = new Subject<PieData[]>();
+
+  answer1Woman1517Statistics: PieData[];
+  answer1Woman1517StatisticsChanged = new Subject<PieData[]>();
+
+  answer1Woman1821Statistics: PieData[];
+  answer1Woman1821StatisticsChanged = new Subject<PieData[]>();
+
+  answer1Woman2230Statistics: PieData[];
+  answer1Woman2230StatisticsChanged = new Subject<PieData[]>();
+
   constructor(private db: AngularFirestore) { }
 
   // get Answer1 Man 15-17 Statistic
@@ -55,6 +67,82 @@ export class Answer1PieService {
         });
   }
 
+  // get Answer1 Man 22-30 Statistic
+  fetchAnswer1Man2230Statistic(): void {
+    this.db
+        .collection('/vih-statistics/man22-30/answer1')
+        .snapshotChanges()
+        .pipe(map((docArray) => {
+            return docArray.map((doc) => {
+                return { 
+                    //id: doc.payload.doc.id,
+                    ...doc.payload.doc.data()
+                };
+            });
+        }))
+        .subscribe((answer1: PieData[]) => {
+            this.answer1Man2230Statistics = answer1;
+            this.answer1Man2230StatisticsChanged.next([...this.answer1Man2230Statistics]);
+        });
+  }
+
+  // get Answer1 Woman 15-17 Statistic
+  fetchAnswer1Woman1517Statistic(): void {
+    this.db
+        .collection('/vih-statistics/woman15-17/answer1')
+        .snapshotChanges()
+        .pipe(map((docArray) => {
+            return docArray.map((doc) => {
+                return { 
+                    //id: doc.payload.doc.id,
+                    ...doc.payload.doc.data()
+                };
+            });
+        }))
+        .subscribe((answer1: PieData[]) => {
+            this.answer1Woman1517Statistics = answer1;
+            this.answer1Woman1517StatisticsChanged.next([...this.answer1Woman1517Statistics]);
+        });
+  }
+
+  // get Answer1 Woman 18-21 Statistic
+  fetchAnswer1Woman1821Statistic(): void {
+    this.db
+        .collection('/vih-statistics/woman18-21/answer1')
+        .snapshotChanges()
+        .pipe(map((docArray) => {
+            return docArray.map((doc) => {
+                return { 
+                    //id: doc.payload.doc.id,
+                    ...doc.payload.doc.data()
+                };
+            });
+        }))
+        .subscribe((answer1: PieData[]) => {
+            this.answer1Woman1821Statistics = answer1;
+            this.answer1Woman1821StatisticsChanged.next([...this.answer1Woman1821Statistics]);
+        });
+  }
+
+  // get Answer1 Woman 18-21 Statistic
+  fetchAnswer1Woman2230Statistic(): void {
+    this.db
+        .collection('/vih-statistics/woman22-30/answer1')
+        .snapshotChanges()
+        .pipe(map((docArray) => {
+            return docArray.map((doc) => {
+                return { 
+                    //id: doc.payload.doc.id,
+                    ...doc.payload.doc.data()
+                };
+            });
+        }))
+        .subscribe((answer1: PieData[]) => {
+            this.answer1Woman2230Statistics = answer1;
+            this.answer1Woman2230StatisticsChanged.next([...this.answer1Woman2230Statistics]);
+        });
+  }
+
   getAndUpdateVihStatisticAnswer1(answer1Options, vihCollectionOptions):void {
 
     for (let indexColecction = 0; indexColecction < vihCollectionOptions.length; indexColecction ++) {
@@ -69,12 +157,7 @@ export class Answer1PieService {
             this.updateVihStatisticAnswer1(vihCollectionOptions[indexColecction].destinyCollection, answer1Options[index].docId, surveys.length );
           });
       }
-
     }
-
-    
-
-
   }
 
   private updateVihStatisticAnswer1(collection: string, docId: string, countNumber: number) {
@@ -84,6 +167,19 @@ export class Answer1PieService {
       .update({
         y: countNumber
       });
+  }
+
+  addDocument(document) {
+      for(let index = 0; index < document.length; index++) {
+        this.db
+            .collection('/vih-statistics/woman22-30/answer1')
+            .doc(document[index].docId)
+            .set({
+                y:0,
+                name: document[index].name
+            });
+      }
+    
   }
 
   
