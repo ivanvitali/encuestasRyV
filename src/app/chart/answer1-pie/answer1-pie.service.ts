@@ -12,6 +12,8 @@ export class Answer1PieService {
   answer1Man1517Statistics: PieData[];
   answer1Man1517StatisticsChanged = new Subject<PieData[]>();
 
+  private biggestInfoOption: number;
+
   // ejemplo
   private vihSurveyAndStatisticOptions = [
     {
@@ -73,5 +75,7 @@ export class Answer1PieService {
         y: countNumber
       });
   }
+
+  
 
 }

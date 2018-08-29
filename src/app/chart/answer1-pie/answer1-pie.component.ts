@@ -131,13 +131,16 @@ export class Answer1PieComponent implements OnInit, OnDestroy {
         //chartMan1517.render();
 
         this.chart = this.AmCharts.makeChart("chartdiv", {
+          "outlineThickness": 0,
+          "autoResize": true,
+          "alpha": 0.5,
           "labelsEnabled": true,
           "autoMargins": false,
           "marginTop": 0,
           "marginBottom": 0,
           "marginLeft": 0,
           "marginRight": 0,
-          "pullOutRadius": 0,
+          "pullOutRadius": 10,
           "type": "pie",
           "theme": "light",
           "outlineColor": "",
@@ -150,6 +153,16 @@ export class Answer1PieComponent implements OnInit, OnDestroy {
         });
 
         this.chart = this.AmCharts.makeChart("chartdiv1", {
+          "outlineThickness": 0,
+          "autoResize": true,
+          "alpha": 0.6,
+          "labelsEnabled": true,
+          "autoMargins": false,
+          "marginTop": 0,
+          "marginBottom": 0,
+          "marginLeft": 0,
+          "marginRight": 0,
+          "pullOutRadius": 10,
           "type": "pie",
           "theme": "light",
           "outlineColor": "",
@@ -162,6 +175,38 @@ export class Answer1PieComponent implements OnInit, OnDestroy {
         });
 
         this.chart = this.AmCharts.makeChart("chartdiv2", {
+          "outlineThickness": 0,
+          "autoResize": true,
+          "alpha": 0.6,
+          "labelsEnabled": true,
+          "autoMargins": false,
+          "marginTop": 0,
+          "marginBottom": 0,
+          "marginLeft": 0,
+          "marginRight": 0,
+          "pullOutRadius": 10,
+          "type": "pie",
+          "theme": "light",
+          "outlineColor": "",
+          "dataProvider": this.answer1Man1517Statistics,
+          "valueField": "y",
+          "titleField": "name",
+          "balloon": {
+            "fixedPosition": true
+          }
+        });
+
+        this.chart = this.AmCharts.makeChart("chartdiv3", {
+          "outlineThickness": 0,
+          "autoResize": true,
+          "alpha": 0.6,
+          "labelsEnabled": true,
+          "autoMargins": false,
+          "marginTop": 0,
+          "marginBottom": 0,
+          "marginLeft": 0,
+          "marginRight": 0,
+          "pullOutRadius": 10,
           "type": "pie",
           "theme": "light",
           "outlineColor": "",
