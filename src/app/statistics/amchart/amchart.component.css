@@ -1,0 +1,15 @@
+mat-card {
+  padding: 5px;
+  width: 510px;
+  height: 400px;
+  margin-top: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+  text-align: center;
+}
+
+.chart {
+    width: 100%;
+    height: 290px;
+    margin: 0 auto;
+}
