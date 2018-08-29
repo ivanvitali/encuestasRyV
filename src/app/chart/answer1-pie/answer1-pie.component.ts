@@ -19,12 +19,24 @@ export class Answer1PieComponent implements OnInit, OnDestroy {
   answer1Man1517Statistics: PieData[];
   answer1Man1517StatisticsSubscription: Subscription;
 
-  private vihSurveyMan1517 = {
-    name: 'Familia',
-    value: 'family',
-    sourceCollection: '/vih-survey-filter/man/15-17',
-    destinyCollection: '/vih-statistics/man15-17/answer1'
-  };
+  answer1Man1821Statistics: PieData[];
+  answer1Man1821StatisticsSubscription: Subscription;
+
+  private vihCollectionOptions = [
+    {
+      sourceCollection: '/vih-survey-filter/man/15-17',
+      destinyCollection: '/vih-statistics/man15-17/answer1'
+    },
+    {
+      sourceCollection: '/vih-survey-filter/man/18-21',
+      destinyCollection: '/vih-statistics/man18-21/answer1'
+    }
+    // ,
+    // {
+    //   sourceCollection: '/vih-survey-filter/man/22-30',
+    //   destinyCollection: '/vih-statistics/man22-30/answer1'
+    // }
+  ];
 
   private answer1Options = [
     {
@@ -95,67 +107,19 @@ export class Answer1PieComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.answer1PieService.getAndUpdateVihStatisticAnswer1(this.answer1Options, this.vihSurveyMan1517);
+    this.answer1PieService.getAndUpdateVihStatisticAnswer1(this.answer1Options, this.vihCollectionOptions);
 
     this.answer1PieService.fetchAnswer1Man1517Statistic();
+    this.answer1PieService.fetchAnswer1Man1821Statistic();
 
     this.answer1Man1517StatisticsSubscription = this.answer1PieService.answer1Man1517StatisticsChanged
       .subscribe((availableAnswer1Statistics) => {
         this.answer1Man1517Statistics = availableAnswer1Statistics;
 
-        //let chartMan1517 = new CanvasJS.Chart("chartContainer", {
-          //theme: "dark2", // "light2", "light1", "dark1", "dark2"
-          //animationEnabled: true,
-          //exportEnabled: true,
-         // title:{
-          //  text: "Hombres 15-17 años"
-         // },
-          //data: [{
-          //  type: "pie",
-          //  showInLegend: true,
-          //  toolTipContent: "<b>{name}</b>: ${y} (#percent%)",
-         //   indexLabel: "{name} - #percent%",
-          //  dataPoints: this.answer1Man1517Statistics
-            // dataPoints: [
-            //   { y: 1, name: "Familia" },
-            //   { y: 1, name: "Escuela" },
-            //   { y: 0, name: "Traveling" },
-            //   { y: 0, name: "Housing" },
-            //   { y: 0, name: "Education" },
-            //   { y: 0, name: "Shopping"},
-            //   { y: 0, name: "Others" }
-            // ]
-         // }]
-       // });
-
-        //chartMan1517.render();
-
-        this.chart = this.AmCharts.makeChart("chartdiv", {
+        this.chart = this.AmCharts.makeChart("chart-man-15-17", {
           "outlineThickness": 0,
           "autoResize": true,
           "alpha": 0.5,
-          "labelsEnabled": true,
-          "autoMargins": false,
-          "marginTop": 0,
-          "marginBottom": 0,
-          "marginLeft": 0,
-          "marginRight": 0,
-          "pullOutRadius": 10,
-          "type": "pie",
-          "theme": "light",
-          "outlineColor": "",
-          "dataProvider": this.answer1Man1517Statistics,
-          "valueField": "y",
-          "titleField": "name",
-          "balloon": {
-            "fixedPosition": true
-          }
-        });
-
-        this.chart = this.AmCharts.makeChart("chartdiv1", {
-          "outlineThickness": 0,
-          "autoResize": true,
-          "alpha": 0.6,
           "labelsEnabled": true,
           "autoMargins": false,
           "marginTop": 0,
@@ -217,67 +181,38 @@ export class Answer1PieComponent implements OnInit, OnDestroy {
             "fixedPosition": true
           }
         });
-
-        
-
-        
       });
       
+    this.answer1Man1821StatisticsSubscription = this.answer1PieService.answer1Man1821StatisticsChanged
+      .subscribe((availableAnswer1Statistics) => {
+        this.answer1Man1821Statistics = availableAnswer1Statistics;
+
+        this.chart = this.AmCharts.makeChart("chart-man-18-21", {
+          "outlineThickness": 0,
+          "autoResize": true,
+          "alpha": 0.6,
+          "labelsEnabled": true,
+          "autoMargins": false,
+          "marginTop": 0,
+          "marginBottom": 0,
+          "marginLeft": 0,
+          "marginRight": 0,
+          "pullOutRadius": 10,
+          "type": "pie",
+          "theme": "light",
+          "outlineColor": "",
+          "dataProvider": this.answer1Man1821Statistics,
+          "valueField": "y",
+          "titleField": "name",
+          "balloon": {
+            "fixedPosition": true
+          }
+        });
+      });
+
     
 
-    let chartMan1821 = new CanvasJS.Chart("chartContainer2", {
-      theme: "dark2",
-      animationEnabled: true,
-      exportEnabled: true,
-      title:{
-        text: "Hombres 18-21 años"
-      },
-      data: [{
-        type: "pie",
-        showInLegend: true,
-        toolTipContent: "<b>{name}</b>: ${y} (#percent%)",
-        indexLabel: "{name} - #percent%",
-        dataPoints: [
-          { y: 450, name: "Food" },
-          { y: 120, name: "Insurance" },
-          { y: 300, name: "Traveling" },
-          { y: 800, name: "Housing" },
-          { y: 150, name: "Education" },
-          { y: 150, name: "Shopping"},
-          { y: 250, name: "Others" }
-        ]
-      }]
-    });
-      
-    
-    //chartMan1821.render();
-
-    let chartMan2230 = new CanvasJS.Chart("chartContainer3", {
-      theme: "dark2",
-      animationEnabled: true,
-      exportEnabled: true,
-      title:{
-        text: "Hombres 22-30 años"
-      },
-      data: [{
-        type: "pie",
-        showInLegend: true,
-        toolTipContent: "<b>{name}</b>: ${y} (#percent%)",
-        indexLabel: "{name} - #percent%",
-        dataPoints: [
-          { y: 450, name: "Food" },
-          { y: 120, name: "Insurance" },
-          { y: 300, name: "Traveling" },
-          { y: 800, name: "Housing" },
-          { y: 150, name: "Education" },
-          { y: 150, name: "Shopping"},
-          { y: 250, name: "Others" }
-        ]
-      }]
-    });
-      
-    
-    //chartMan2230.render();
+  
 
     
   }
