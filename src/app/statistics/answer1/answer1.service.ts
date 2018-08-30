@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { PieData } from '../pie-data.model';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -179,7 +179,28 @@ export class Answer1Service {
                 name: document[index].name
             });
       }
-    
+
+  }
+
+  getDataMan1517(): Observable<any> {
+    return this.db
+      .collection('/vih-statistics/woman15-17/answer1')
+      .valueChanges();
+    //   .pipe(map(docArray => {
+    //     return docArray.map((doc) => {
+    //         return { 
+    //             //id: doc.payload.doc.id,
+    //             ...doc.payload.doc.data()
+    //         };
+    //     });
+    //   }));
+    //   .subscribe(doc => {
+    //       console.log('doc: ',doc);
+    //   });
+    //   .subscribe((data) => {
+    //       console.log('data: ', data);
+    //       return data;
+    //   });
   }
 
   

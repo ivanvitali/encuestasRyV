@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { PieData } from '../pie-data.model';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable, Subject } from 'rxjs';
 import { Answer1Service } from './answer1.service';
 
 @Component({
@@ -8,16 +8,25 @@ import { Answer1Service } from './answer1.service';
   templateUrl: './answer1.component.html',
   styleUrls: ['./answer1.component.css']
 })
-export class Answer1Component implements OnInit {
+export class Answer1Component implements OnInit, OnDestroy {
 
-  answer1Man1517Statistics: PieData[];
+  //answer1Man1517Statistics: PieData[];
   answer1Man1517StatisticsSubscription: Subscription;
 
-  answer1Man1821Statistics: PieData[];
+  //answer1Man1821Statistics: PieData[];
   answer1Man1821StatisticsSubscription: Subscription;
 
-  answer1Man2230Statistics: PieData[];
+  //answer1Man2230Statistics: PieData[];
   answer1Man2230StatisticsSubscription: Subscription;
+
+  //answer1Woman1517Statistics: PieData[];
+  answer1Woman1517StatisticsSubscription: Subscription;
+
+  //answer1Woman1821Statistics: PieData[];
+  answer1Woman1821StatisticsSubscription: Subscription;
+
+  //answer1Woman2230Statistics: PieData[];
+  answer1Woman2230StatisticsSubscription: Subscription;
 
   private statistics = {
     answer1 : {
@@ -37,6 +46,24 @@ export class Answer1Component implements OnInit {
         title: "Vias de informacion",
         subTitle: "Hombre 22-30",
         tagId: "chart-man-22-30",
+        data: [{}]
+      },
+      woman1517 : {
+        title: "Vias de informacion",
+        subTitle: "Mujer 15-17",
+        tagId: "chart-woman-15-17",
+        data: [{}]
+      },
+      woman1821 : {
+        title: "Vias de informacion",
+        subTitle: "Mujer 18-21",
+        tagId: "chart-woman-18-21",
+        data: [{}]
+      },
+      woman2230 : {
+        title: "Vias de informacion",
+        subTitle: "Mujer 22-30",
+        tagId: "chart-woman-22-30",
         data: [{}]
       }
     }
@@ -143,26 +170,48 @@ export class Answer1Component implements OnInit {
     this.answer1Service.fetchAnswer1Man1517Statistic();
     this.answer1Service.fetchAnswer1Man1821Statistic();
     this.answer1Service.fetchAnswer1Man2230Statistic();
+    this.answer1Service.fetchAnswer1Woman1517Statistic();
+    this.answer1Service.fetchAnswer1Woman1821Statistic();
+    this.answer1Service.fetchAnswer1Woman2230Statistic();
 
     this.answer1Man1517StatisticsSubscription = this.answer1Service.answer1Man1517StatisticsChanged
       .subscribe((availableAnswer1Statistics) => {
-        this.answer1Man1517Statistics = availableAnswer1Statistics;
-        this.statistics.answer1.man1517.data = this.answer1Man1517Statistics;
+        this.statistics.answer1.man1517.data = availableAnswer1Statistics;
       });
 
     this.answer1Man1821StatisticsSubscription = this.answer1Service.answer1Man1821StatisticsChanged
       .subscribe((availableAnswer1Statistics) => {
-        this.answer1Man1821Statistics = availableAnswer1Statistics;
-        this.statistics.answer1.man1821.data = this.answer1Man1821Statistics;
+        this.statistics.answer1.man1821.data = availableAnswer1Statistics;
       });
 
     this.answer1Man2230StatisticsSubscription = this.answer1Service.answer1Man2230StatisticsChanged
       .subscribe((availableAnswer1Statistics) => {
-        this.answer1Man2230Statistics = availableAnswer1Statistics;
-        this.statistics.answer1.man2230.data = this.answer1Man2230Statistics;
+        this.statistics.answer1.man2230.data = availableAnswer1Statistics;
       });
+
+    this.answer1Woman1517StatisticsSubscription = this.answer1Service.answer1Woman1517StatisticsChanged
+      .subscribe((availableAnswer1Statistics) => {
+        this.statistics.answer1.woman1517.data = availableAnswer1Statistics;
+      });
+
+    this.answer1Woman1821StatisticsSubscription = this.answer1Service.answer1Woman1821StatisticsChanged
+      .subscribe((availableAnswer1Statistics) => {
+        this.statistics.answer1.woman1821.data = availableAnswer1Statistics;
+      });
+    
+    this.answer1Woman2230StatisticsSubscription = this.answer1Service.answer1Woman2230StatisticsChanged
+      .subscribe((availableAnswer1Statistics) => {
+        this.statistics.answer1.woman2230.data = availableAnswer1Statistics;
+      });
+
+    this.answer1Service.getAndUpdateVihStatisticAnswer1(this.answer1Options, this.vihCollectionOptions);
   }
 
   
+  ngOnDestroy() {
+    this.answer1Man1517StatisticsSubscription.unsubscribe();
+    this.answer1Man1821StatisticsSubscription.unsubscribe();
+    this.answer1Man2230StatisticsSubscription.unsubscribe();
+  }
 
 }

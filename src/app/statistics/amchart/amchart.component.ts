@@ -13,7 +13,7 @@ export class AmchartComponent implements OnInit {
   @Input() private title: string;
   @Input() private subTitle: string;
   @Input() private tagId: string;
-  @Input() private data: Observable<PieData[]>;
+  @Input() private data: PieData[];
 
   private dataChiled: PieData[];
 
@@ -26,7 +26,7 @@ export class AmchartComponent implements OnInit {
   ngOnInit() {
 
     setTimeout(() => {
-      console.log(this.title,' ',this.subTitle, ' ', this.tagId, ' ', this.data);
+      //console.log(this.title,' ',this.subTitle, ' ', this.tagId, ' ', this.data);
       this.chart = this.AmCharts.makeChart(this.tagId, {
         "outlineThickness": 0,
         "autoResize": true,
@@ -48,7 +48,7 @@ export class AmchartComponent implements OnInit {
           "fixedPosition": true
         }
       });
-    }, 1500);
+    }, 4000);
   }
 
 }
