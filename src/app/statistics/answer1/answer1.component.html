@@ -1,6 +1,6 @@
 <section
   class="answer1">
-  <app-amchart 
+  <app-amchart *ngIf="statistics.answer1.man1517.data"
     [title]="statistics.answer1.man1517.title"
     [subTitle]="statistics.answer1.man1517.subTitle"
     [tagId]="statistics.answer1.man1517.tagId"
@@ -18,5 +18,4 @@
     [subTitle]="statistics.answer1.man2230.subTitle"
     [tagId]="statistics.answer1.man2230.tagId"
     [data]="statistics.answer1.man2230.data"></app-amchart>
-
 </section>

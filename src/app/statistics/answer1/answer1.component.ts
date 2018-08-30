@@ -148,27 +148,6 @@ export class Answer1Component implements OnInit {
       .subscribe((availableAnswer1Statistics) => {
         this.answer1Man1517Statistics = availableAnswer1Statistics;
         this.statistics.answer1.man1517.data = this.answer1Man1517Statistics;
-//        this.chart = this.AmCharts.makeChart("chart-man-15-17", {
-//          "outlineThickness": 0,
-//          "autoResize": true,
-//          "alpha": 0.5,
-//          "labelsEnabled": true,
-//          "autoMargins": false,
-//          "marginTop": 0,
-//          "marginBottom": 0,
-//          "marginLeft": 0,
-//          "marginRight": 0,
-//          "pullOutRadius": 10,
-//          "type": "pie",
-//          "theme": "light",
-//          "outlineColor": "",
-//          "dataProvider": this.answer1Man1517Statistics,
-//          "valueField": "y",
-//          "titleField": "name",
-//          "balloon": {
-//            "fixedPosition": true
-        //  }
-        //});
       });
 
     this.answer1Man1821StatisticsSubscription = this.answer1Service.answer1Man1821StatisticsChanged
