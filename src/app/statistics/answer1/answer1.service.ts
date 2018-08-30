@@ -43,8 +43,8 @@ export class Answer1Service {
             });
         }))
         .subscribe((answer1: PieData[]) => {
-            this.answer1Man1517Statistics = answer1;
-            this.answer1Man1517StatisticsChanged.next([...this.answer1Man1517Statistics]);
+            //this.answer1Man1517Statistics = answer1;
+            this.answer1Man1517StatisticsChanged.next([...answer1]);
         });
   }
 
@@ -62,8 +62,8 @@ export class Answer1Service {
             });
         }))
         .subscribe((answer1: PieData[]) => {
-            this.answer1Man1821Statistics = answer1;
-            this.answer1Man1821StatisticsChanged.next([...this.answer1Man1821Statistics]);
+            //this.answer1Man1821Statistics = answer1;
+            this.answer1Man1821StatisticsChanged.next([...answer1]);
         });
   }
 
@@ -81,8 +81,8 @@ export class Answer1Service {
             });
         }))
         .subscribe((answer1: PieData[]) => {
-            this.answer1Man2230Statistics = answer1;
-            this.answer1Man2230StatisticsChanged.next([...this.answer1Man2230Statistics]);
+            //this.answer1Man2230Statistics = answer1;
+            this.answer1Man2230StatisticsChanged.next([...answer1]);
         });
   }
 
@@ -100,8 +100,8 @@ export class Answer1Service {
             });
         }))
         .subscribe((answer1: PieData[]) => {
-            this.answer1Woman1517Statistics = answer1;
-            this.answer1Woman1517StatisticsChanged.next([...this.answer1Woman1517Statistics]);
+            //this.answer1Woman1517Statistics = answer1;
+            this.answer1Woman1517StatisticsChanged.next([...answer1]);
         });
   }
 
@@ -119,8 +119,8 @@ export class Answer1Service {
             });
         }))
         .subscribe((answer1: PieData[]) => {
-            this.answer1Woman1821Statistics = answer1;
-            this.answer1Woman1821StatisticsChanged.next([...this.answer1Woman1821Statistics]);
+            //this.answer1Woman1821Statistics = answer1;
+            this.answer1Woman1821StatisticsChanged.next([...answer1]);
         });
   }
 
@@ -138,8 +138,8 @@ export class Answer1Service {
             });
         }))
         .subscribe((answer1: PieData[]) => {
-            this.answer1Woman2230Statistics = answer1;
-            this.answer1Woman2230StatisticsChanged.next([...this.answer1Woman2230Statistics]);
+            //this.answer1Woman2230Statistics = answer1;
+            this.answer1Woman2230StatisticsChanged.next([...answer1]);
         });
   }
 
@@ -179,7 +179,7 @@ export class Answer1Service {
                 name: document[index].name
             });
       }
-
+    
   }
 
   getDataMan1517(): Observable<any> {

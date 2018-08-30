@@ -177,6 +177,7 @@ export class Answer1Component implements OnInit, OnDestroy {
     this.answer1Man1517StatisticsSubscription = this.answer1Service.answer1Man1517StatisticsChanged
       .subscribe((availableAnswer1Statistics) => {
         this.statistics.answer1.man1517.data = availableAnswer1Statistics;
+        console.log('data refresh: ', this.statistics.answer1.man1517.data);
       });
 
     this.answer1Man1821StatisticsSubscription = this.answer1Service.answer1Man1821StatisticsChanged
