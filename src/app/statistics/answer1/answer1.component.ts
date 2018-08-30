@@ -10,22 +10,11 @@ import { Answer1Service } from './answer1.service';
 })
 export class Answer1Component implements OnInit, OnDestroy {
 
-  //answer1Man1517Statistics: PieData[];
   answer1Man1517StatisticsSubscription: Subscription;
-
-  //answer1Man1821Statistics: PieData[];
   answer1Man1821StatisticsSubscription: Subscription;
-
-  //answer1Man2230Statistics: PieData[];
   answer1Man2230StatisticsSubscription: Subscription;
-
-  //answer1Woman1517Statistics: PieData[];
   answer1Woman1517StatisticsSubscription: Subscription;
-
-  //answer1Woman1821Statistics: PieData[];
   answer1Woman1821StatisticsSubscription: Subscription;
-
-  //answer1Woman2230Statistics: PieData[];
   answer1Woman2230StatisticsSubscription: Subscription;
 
   private statistics = {
@@ -166,7 +155,10 @@ export class Answer1Component implements OnInit, OnDestroy {
   constructor(private answer1Service: Answer1Service) { }
 
   ngOnInit() {
+    // Update statistic
+    this.answer1Service.getAndUpdateVihStatisticAnswer1(this.answer1Options, this.vihCollectionOptions);
 
+    // Fetch statistic for gender and years
     this.answer1Service.fetchAnswer1Man1517Statistic();
     this.answer1Service.fetchAnswer1Man1821Statistic();
     this.answer1Service.fetchAnswer1Man2230Statistic();
@@ -177,7 +169,7 @@ export class Answer1Component implements OnInit, OnDestroy {
     this.answer1Man1517StatisticsSubscription = this.answer1Service.answer1Man1517StatisticsChanged
       .subscribe((availableAnswer1Statistics) => {
         this.statistics.answer1.man1517.data = availableAnswer1Statistics;
-        console.log('data refresh: ', this.statistics.answer1.man1517.data);
+        //console.log('data refresh: ', this.statistics.answer1.man1517.data);
       });
 
     this.answer1Man1821StatisticsSubscription = this.answer1Service.answer1Man1821StatisticsChanged
@@ -204,8 +196,6 @@ export class Answer1Component implements OnInit, OnDestroy {
       .subscribe((availableAnswer1Statistics) => {
         this.statistics.answer1.woman2230.data = availableAnswer1Statistics;
       });
-
-    this.answer1Service.getAndUpdateVihStatisticAnswer1(this.answer1Options, this.vihCollectionOptions);
   }
 
   
@@ -213,6 +203,9 @@ export class Answer1Component implements OnInit, OnDestroy {
     this.answer1Man1517StatisticsSubscription.unsubscribe();
     this.answer1Man1821StatisticsSubscription.unsubscribe();
     this.answer1Man2230StatisticsSubscription.unsubscribe();
+    this.answer1Woman1517StatisticsSubscription.unsubscribe();
+    this.answer1Woman1821StatisticsSubscription.unsubscribe();
+    this.answer1Woman2230StatisticsSubscription.unsubscribe();
   }
 
 }

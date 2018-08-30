@@ -13,20 +13,20 @@ export class AmchartComponent implements OnInit {
   @Input() private title: string;
   @Input() private subTitle: string;
   @Input() private tagId: string;
-  @Input() private data: PieData[];
+  @Input() set data(docArray: PieData[]) {
+    this.dataArray.next(docArray);
+  };
 
-  private dataChiled: PieData[];
+  private dataArray = new BehaviorSubject<PieData[]>([]);
 
   private chart: AmChart;
 
   constructor(private AmCharts: AmChartsService) {}
 
-  
-
   ngOnInit() {
 
-    setTimeout(() => {
-      //console.log(this.title,' ',this.subTitle, ' ', this.tagId, ' ', this.data);
+    this.dataArray.subscribe(data => {
+      // Draw a pie with data
       this.chart = this.AmCharts.makeChart(this.tagId, {
         "outlineThickness": 0,
         "autoResize": true,
@@ -41,14 +41,14 @@ export class AmchartComponent implements OnInit {
         "type": "pie",
         "theme": "light",
         "outlineColor": "",
-        "dataProvider": this.data,
+        "dataProvider": data,
         "valueField": "y",
         "titleField": "name",
         "balloon": {
           "fixedPosition": true
         }
       });
-    }, 4000);
+    });
   }
 
 }
