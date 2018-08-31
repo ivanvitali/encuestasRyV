@@ -10,22 +10,25 @@ import { BehaviorSubject, Subscription, Observable } from 'rxjs';
 })
 export class AmchartComponent implements OnInit {
 
+  private _dataChart = new BehaviorSubject<PieData[]>([]);
+  private chart: AmChart;
+
   @Input() private title: string;
   @Input() private subTitle: string;
   @Input() private tagId: string;
-  @Input() set data(docArray: PieData[]) {
-    this.dataArray.next(docArray);
+  @Input() set dataChart(docArray: PieData[]) {
+    this._dataChart.next(docArray);
   };
 
-  private dataArray = new BehaviorSubject<PieData[]>([]);
-
-  private chart: AmChart;
+  get dataChart() {
+    return this._dataChart.getValue();
+  }
 
   constructor(private AmCharts: AmChartsService) {}
 
   ngOnInit() {
 
-    this.dataArray.subscribe(data => {
+    this._dataChart.subscribe(data => {
       // Draw a pie with data
       this.chart = this.AmCharts.makeChart(this.tagId, {
         "outlineThickness": 0,
