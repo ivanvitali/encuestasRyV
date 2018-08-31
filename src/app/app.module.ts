@@ -28,6 +28,7 @@ import { HivSurveyService } from './survey/hiv-survey/hiv-survey.service';
 import { VihStatisticsService } from './statistics/vih-statistics/vih-statistics.service';
 import { Answer1PieService } from './chart/answer1-pie/answer1-pie.service';
 import { Answer1Service } from './statistics/answer1/answer1.service';
+import { Answer2Service } from './statistics/answer2/answer2.service';
 
 // environment
 import { environment } from '../environments/environment';
@@ -37,6 +38,7 @@ import { ChartComponent } from './chart/chart.component';
 import { Answer1PieComponent } from './chart/answer1-pie/answer1-pie.component';
 import { Answer1Component } from './statistics/answer1/answer1.component';
 import { AmchartComponent } from './statistics/amchart/amchart.component';
+import { Answer2Component } from './statistics/answer2/answer2.component';
 
 
 @NgModule({
@@ -55,7 +57,8 @@ import { AmchartComponent } from './statistics/amchart/amchart.component';
     ChartComponent,
     Answer1PieComponent,
     Answer1Component,
-    AmchartComponent
+    AmchartComponent,
+    Answer2Component
   ],
   imports: [
     BrowserModule,
@@ -75,7 +78,8 @@ import { AmchartComponent } from './statistics/amchart/amchart.component';
     HivSurveyService,
     VihStatisticsService,
     Answer1PieService,
-    Answer1Service
+    Answer1Service,
+    Answer2Service
   ],
   bootstrap: [AppComponent]
 })
