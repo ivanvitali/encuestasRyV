@@ -3,13 +3,17 @@
     <ng-template mat-tab-label>
       <em>Vias de Informacion</em>
     </ng-template>
-    <app-answer1></app-answer1>
+    <ng-template matTabContent>
+      <app-answer1></app-answer1>
+    </ng-template>
   </mat-tab>
   <mat-tab>
       <ng-template mat-tab-label>
         <em>Vih == Sida?</em>
       </ng-template>
-      <app-answer2></app-answer2>
+      <ng-template matTabContent>
+        <app-answer2></app-answer2>
+      </ng-template>
     </mat-tab>
 </mat-tab-group>
 
