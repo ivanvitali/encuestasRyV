@@ -222,7 +222,10 @@ export class HivSurveyComponent implements OnInit, OnDestroy {
         publicRoad: new FormControl(false),
         newspaper: new FormControl(false),
         other: new FormControl(false)
-      }, Validators.required)
+      }),
+      answer2: new FormGroup({
+        value: new FormControl('', Validators.required)
+      })
       
     });
 

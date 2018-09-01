@@ -163,17 +163,23 @@
         <!-- Pregunta 1 -->
   
         <!-- Pregunta 2 -->
-        <h4>2. Crees que Vih y Sida es lo mismo?</h4>
-        <mat-radio-group name="question-2">
-        <ul class="form-question-2">
-          <li>
-            <mat-radio-button value="Si">Si</mat-radio-button>
-          </li>
-          <li>
-            <mat-radio-button value="No">No</mat-radio-button>
-          </li>
-        </ul>
-        </mat-radio-group><!-- Pregunta 2 -->
+        <section
+          formGroupName="answer2">
+          <h4>2. Crees que Vih y Sida es lo mismo?</h4>
+          <mat-radio-group 
+            name="question-2"
+            formControlName="value">
+            <ul class="form-question-2">
+              <li>
+                <mat-radio-button value="Si">Si</mat-radio-button>
+              </li>
+              <li>
+                <mat-radio-button value="No">No</mat-radio-button>
+              </li>
+            </ul>
+          </mat-radio-group>
+        </section>
+       <!-- Pregunta 2 -->
         
         <!-- Pregunta 3 -->
         <h4>3. Te consideras expuesto al virus? Porque?</h4>
