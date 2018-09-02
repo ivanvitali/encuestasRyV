@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PieData } from '../pie-data.model';
+import { PieData } from './shared/pie-data.model';
 import { AmChartsService, AmChart } from '@amcharts/amcharts3-angular';
 import { BehaviorSubject, Subscription, Observable } from 'rxjs';
 

@@ -5,7 +5,6 @@ import { SignupComponent } from "./auth/signup/signup.component";
 import { LoginComponent } from "./auth/login/login.component";
 import { SurveyComponent } from "./survey/survey.component";
 import { StatisticsComponent } from "./statistics/statistics.component";
-import { VihStatisticsComponent } from "./statistics/vih-statistics/vih-statistics.component";
 
 const routes: Routes = [
     { path: '', component: WelcomeComponent },

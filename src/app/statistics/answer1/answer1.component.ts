@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { PieData } from '../pie-data.model';
 import { Subscription, Observable, Subject } from 'rxjs';
-import { Answer1Service } from './answer1.service';
+import { Answer1Service } from './shared/answer1.service';
 
 @Component({
   selector: 'app-answer1',

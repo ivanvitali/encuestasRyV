@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { PieData } from '../pie-data.model';
+import { PieData } from '../../amchart/shared/pie-data.model';
 import { Subject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

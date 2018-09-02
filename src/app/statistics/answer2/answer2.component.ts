@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Answer2Service } from './answer2.service';
+import { Answer2Service } from './shared/answer2.service';
 
 @Component({
   selector: 'app-answer2',

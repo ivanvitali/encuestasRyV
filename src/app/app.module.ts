@@ -25,17 +25,12 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
 // services
 import { AuthService } from './auth/auth.service';
 import { HivSurveyService } from './survey/hiv-survey/hiv-survey.service';
-import { VihStatisticsService } from './statistics/vih-statistics/vih-statistics.service';
-import { Answer1PieService } from './chart/answer1-pie/answer1-pie.service';
-import { Answer1Service } from './statistics/answer1/answer1.service';
-import { Answer2Service } from './statistics/answer2/answer2.service';
+import { Answer1Service } from './statistics/answer1/shared/answer1.service';
+import { Answer2Service } from './statistics/answer2/shared/answer2.service';
 
 // environment
 import { environment } from '../environments/environment';
 import { StatisticsComponent } from './statistics/statistics.component';
-import { VihStatisticsComponent } from './statistics/vih-statistics/vih-statistics.component';
-import { ChartComponent } from './chart/chart.component';
-import { Answer1PieComponent } from './chart/answer1-pie/answer1-pie.component';
 import { Answer1Component } from './statistics/answer1/answer1.component';
 import { AmchartComponent } from './statistics/amchart/amchart.component';
 import { Answer2Component } from './statistics/answer2/answer2.component';
@@ -53,9 +48,6 @@ import { Answer2Component } from './statistics/answer2/answer2.component';
     HeaderComponent,
     SidenavListComponent,
     StatisticsComponent,
-    VihStatisticsComponent,
-    ChartComponent,
-    Answer1PieComponent,
     Answer1Component,
     AmchartComponent,
     Answer2Component
@@ -76,8 +68,6 @@ import { Answer2Component } from './statistics/answer2/answer2.component';
     {provide: MAT_DATE_LOCALE, useValue: 'es-LA'},
     AuthService,
     HivSurveyService,
-    VihStatisticsService,
-    Answer1PieService,
     Answer1Service,
     Answer2Service
   ],
