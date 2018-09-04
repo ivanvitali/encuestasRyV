@@ -177,30 +177,7 @@ export class Answer1Service {
     
   }
 
-  getDataMan1517(): Observable<any> {
-    return this.db
-      .collection('/vih-statistics/woman15-17/answer1')
-      .valueChanges();
-    //   .pipe(map(docArray => {
-    //     return docArray.map((doc) => {
-    //         return { 
-    //             //id: doc.payload.doc.id,
-    //             ...doc.payload.doc.data()
-    //         };
-    //     });
-    //   }));
-    //   .subscribe(doc => {
-    //       console.log('doc: ',doc);
-    //   });
-    //   .subscribe((data) => {
-    //       console.log('data: ', data);
-    //       return data;
-    //   });
-  }
-
   cancelSubscriptions() {
       this.fbSubs.forEach(subscription => subscription.unsubscribe());
   }
-  
-
 }
