@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AmChartsModule } from "@amcharts/amcharts3-angular";
 
 import { MAT_DATE_LOCALE } from '@angular/material/core';
@@ -62,7 +63,8 @@ import { Answer2Component } from './statistics/answer2/answer2.component';
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AmChartsModule
+    AmChartsModule,
+    AngularFireAuthModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'es-LA'},

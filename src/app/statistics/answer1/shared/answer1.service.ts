@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { PieData } from '../../amchart/shared/pie-data.model';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -27,11 +27,13 @@ export class Answer1Service {
   answer1Woman2230Statistics: PieData[];
   answer1Woman2230StatisticsChanged = new Subject<PieData[]>();
 
+  private fbSubs: Subscription[] = [];
+
   constructor(private db: AngularFirestore) { }
 
   // get Answer1 Man 15-17 Statistic
   fetchAnswer1Man1517Statistic(): void {
-    this.db
+      this.fbSubs.push(this.db
         .collection('/vih-statistics/man15-17/answer1')
         .snapshotChanges()
         .pipe(map((docArray) => {
@@ -43,14 +45,13 @@ export class Answer1Service {
             });
         }))
         .subscribe((answer1: PieData[]) => {
-            //this.answer1Man1517Statistics = answer1;
             this.answer1Man1517StatisticsChanged.next([...answer1]);
-        });
+        }));
   }
 
   // get Answer1 Man 18-21 Statistic
   fetchAnswer1Man1821Statistic(): void {
-    this.db
+      this.fbSubs.push(this.db
         .collection('/vih-statistics/man18-21/answer1')
         .snapshotChanges()
         .pipe(map((docArray) => {
@@ -62,14 +63,13 @@ export class Answer1Service {
             });
         }))
         .subscribe((answer1: PieData[]) => {
-            //this.answer1Man1821Statistics = answer1;
             this.answer1Man1821StatisticsChanged.next([...answer1]);
-        });
+        }));
   }
 
   // get Answer1 Man 22-30 Statistic
   fetchAnswer1Man2230Statistic(): void {
-    this.db
+      this.fbSubs.push(this.db
         .collection('/vih-statistics/man22-30/answer1')
         .snapshotChanges()
         .pipe(map((docArray) => {
@@ -81,14 +81,13 @@ export class Answer1Service {
             });
         }))
         .subscribe((answer1: PieData[]) => {
-            //this.answer1Man2230Statistics = answer1;
             this.answer1Man2230StatisticsChanged.next([...answer1]);
-        });
+        }));
   }
 
   // get Answer1 Woman 15-17 Statistic
   fetchAnswer1Woman1517Statistic(): void {
-    this.db
+      this.fbSubs.push(this.db
         .collection('/vih-statistics/woman15-17/answer1')
         .snapshotChanges()
         .pipe(map((docArray) => {
@@ -100,14 +99,13 @@ export class Answer1Service {
             });
         }))
         .subscribe((answer1: PieData[]) => {
-            //this.answer1Woman1517Statistics = answer1;
             this.answer1Woman1517StatisticsChanged.next([...answer1]);
-        });
+        }));
   }
 
   // get Answer1 Woman 18-21 Statistic
   fetchAnswer1Woman1821Statistic(): void {
-    this.db
+      this.fbSubs.push(this.db
         .collection('/vih-statistics/woman18-21/answer1')
         .snapshotChanges()
         .pipe(map((docArray) => {
@@ -119,14 +117,13 @@ export class Answer1Service {
             });
         }))
         .subscribe((answer1: PieData[]) => {
-            //this.answer1Woman1821Statistics = answer1;
             this.answer1Woman1821StatisticsChanged.next([...answer1]);
-        });
+        }));
   }
 
   // get Answer1 Woman 18-21 Statistic
   fetchAnswer1Woman2230Statistic(): void {
-    this.db
+      this.fbSubs.push(this.db
         .collection('/vih-statistics/woman22-30/answer1')
         .snapshotChanges()
         .pipe(map((docArray) => {
@@ -138,9 +135,8 @@ export class Answer1Service {
             });
         }))
         .subscribe((answer1: PieData[]) => {
-            //this.answer1Woman2230Statistics = answer1;
             this.answer1Woman2230StatisticsChanged.next([...answer1]);
-        });
+        }));
   }
 
   getAndUpdateVihStatisticAnswer1(answer1Options, vihCollectionOptions):void {
@@ -149,13 +145,12 @@ export class Answer1Service {
       for (let index = 0; index < answer1Options.length; index ++) {
         //console.log(index);
         // get number of surveys
-        this.db
-          .collection(vihCollectionOptions[indexColecction].sourceCollection, ref => ref.where(answer1Options[index].position,'==', true))
-          .valueChanges()
-          .subscribe((surveys) => {
-            //console.log('get ',answer1Options[index].docId ,' ',surveys.length);
-            this.updateVihStatisticAnswer1(vihCollectionOptions[indexColecction].destinyCollection, answer1Options[index].docId, surveys.length );
-          });
+        this.fbSubs.push(this.db
+            .collection(vihCollectionOptions[indexColecction].sourceCollection, ref => ref.where(answer1Options[index].position,'==', true))
+            .valueChanges()
+            .subscribe((surveys) => {
+              this.updateVihStatisticAnswer1(vihCollectionOptions[indexColecction].destinyCollection, answer1Options[index].docId, surveys.length );
+            }));
       }
     }
   }
@@ -203,6 +198,9 @@ export class Answer1Service {
     //   });
   }
 
+  cancelSubscriptions() {
+      this.fbSubs.forEach(subscription => subscription.unsubscribe());
+  }
   
 
 }
