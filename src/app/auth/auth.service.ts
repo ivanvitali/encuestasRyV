@@ -22,6 +22,22 @@ export class AuthService {
         private answer2Service: Answer2Service
     ) {}
 
+    initAuthListener() {
+        this.afAuth.authState.subscribe((user) => {
+            if (user) {
+                this.isAuthenticated = true;
+                this.authChange.next(true);
+                this.router.navigate(['/survey']);
+            } else {
+                this.answer1Service.cancelSubscriptions();
+                this.answer2Service.cancelSubscriptions();
+                this.authChange.next(false);
+                this.router.navigate(['/login']);
+                this.isAuthenticated = false;
+            }
+        });
+    }
+
     registerUser( authData: AuthData) {
         this.afAuth.auth.createUserWithEmailAndPassword(
             authData.email, 
@@ -46,12 +62,7 @@ export class AuthService {
     }
 
     logout() {
-        this.answer1Service.cancelSubscriptions();
-        this.answer2Service.cancelSubscriptions();
         this.afAuth.auth.signOut();
-        this.authChange.next(false);
-        this.router.navigate(['/login']);
-        this.isAuthenticated = false;
     }
 
     isAuth() {
@@ -59,8 +70,6 @@ export class AuthService {
     }
 
     private authSuccessfully() {
-        this.isAuthenticated = true;
-        this.authChange.next(true);
-        this.router.navigate(['/survey']);
+        
     }
 }
