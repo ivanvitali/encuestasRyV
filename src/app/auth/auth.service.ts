@@ -7,6 +7,7 @@ import { User } from "./user.model";
 import { AuthData } from "./auth-data.moede";
 import { Answer1Service } from '../statistics/answer1/shared/answer1.service';
 import { Answer2Service } from '../statistics/answer2/shared/answer2.service';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable()
 export class AuthService {
@@ -19,7 +20,8 @@ export class AuthService {
         private router: Router,
         private afAuth: AngularFireAuth,
         private answer1Service: Answer1Service,
-        private answer2Service: Answer2Service
+        private answer2Service: Answer2Service,
+        private snackbar: MatSnackBar
     ) {}
 
     initAuthListener() {
@@ -43,9 +45,10 @@ export class AuthService {
             authData.email, 
             authData.password
         ).then((result) => {
-            this.authSuccessfully();
         }).catch((error) => {
-            console.log(error);
+            this.snackbar.open(error.message, null, {
+                duration: 3000
+            });
         });
     }
 
@@ -55,9 +58,10 @@ export class AuthService {
             authData.password
         ).then((result) => {
             console.log(result);
-            this.authSuccessfully();
         }).catch((error) => {
-            console.log(error);
+            this.snackbar.open(error.message, null, {
+                duration: 3000
+            });
         });
     }
 
@@ -67,9 +71,5 @@ export class AuthService {
 
     isAuth() {
         return this.isAuthenticated;
-    }
-
-    private authSuccessfully() {
-        
     }
 }
