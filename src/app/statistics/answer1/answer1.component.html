@@ -1,5 +1,6 @@
 <section
   class="answer1">
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
   <app-amchart
     [title]="statistics.answer1.man1517.title"
     [subTitle]="statistics.answer1.man1517.subTitle"

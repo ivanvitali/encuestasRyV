@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Subscription, Observable, Subject } from 'rxjs';
 import { Answer1Service } from './shared/answer1.service';
+import { UIService } from '../../shared/ui.service';
 
 @Component({
   selector: 'app-answer1',
@@ -151,7 +152,7 @@ export class Answer1Component implements OnInit, OnDestroy {
     }
   ];
 
-  constructor(private answer1Service: Answer1Service) { }
+  constructor(private answer1Service: Answer1Service, private uiService: UIService) { }
 
   ngOnInit() {
     // Update statistic
@@ -168,7 +169,6 @@ export class Answer1Component implements OnInit, OnDestroy {
     this.answer1Man1517StatisticsSubscription = this.answer1Service.answer1Man1517StatisticsChanged
       .subscribe((availableAnswer1Statistics) => {
         this.statistics.answer1.man1517.data = availableAnswer1Statistics;
-        //console.log('data refresh: ', this.statistics.answer1.man1517.data);
       });
 
     this.answer1Man1821StatisticsSubscription = this.answer1Service.answer1Man1821StatisticsChanged
@@ -205,6 +205,4 @@ export class Answer1Component implements OnInit, OnDestroy {
     this.answer1Woman1517StatisticsSubscription.unsubscribe();
     this.answer1Woman1821StatisticsSubscription.unsubscribe();
     this.answer1Woman2230StatisticsSubscription.unsubscribe();
-  }
-
 }
