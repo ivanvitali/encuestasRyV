@@ -152,7 +152,7 @@ export class Answer1Component implements OnInit, OnDestroy {
     }
   ];
 
-  constructor(private answer1Service: Answer1Service, private uiService: UIService) { }
+  constructor(private answer1Service: Answer1Service) { }
 
   ngOnInit() {
     // Update statistic
@@ -205,4 +205,5 @@ export class Answer1Component implements OnInit, OnDestroy {
     this.answer1Woman1517StatisticsSubscription.unsubscribe();
     this.answer1Woman1821StatisticsSubscription.unsubscribe();
     this.answer1Woman2230StatisticsSubscription.unsubscribe();
+  }
 }
