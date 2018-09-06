@@ -1,33 +1,33 @@
-<mat-toolbar class="z-depth-1" color="primary">
-    <div fxHide.gt-xs>
-      <button mat-icon-button (click)="onToggleSidenav()">
-        <mat-icon>menu</mat-icon>
-      </button>
-    </div>
-    <div class="header-logo">
-      <a routerLink="/">Encuestas Rock&amp;Vida</a>
-    </div>
-    <div class="header-nav" 
-        fxFlex 
-        fxLayout 
-        fxLayoutAlign="flex-end" 
-        fxHide.xs>
-      <ul fxLayout fxLayoutGap="10px" class="navigation-items">
-        <li *ngIf="!isAuth">
-          <a routerLink="/signup">Registrarse</a>
-        </li>
-        <li *ngIf="!isAuth">
-          <a routerLink="/login">Ingresar</a>
-        </li>
-        <li *ngIf="isAuth">
-          <a routerLink="/survey">Encuesta</a>
-        </li>
-        <li *ngIf="isAuth">
-          <a routerLink="/statistics">Estadistica</a>
-        </li>
-        <li *ngIf="isAuth">
-          <a style="cursor: pointer" (click)="onLogout()">Salir</a>
-        </li>
-      </ul>
-    </div>
-  </mat-toolbar>
+<mat-toolbar color="primary">
+  <div fxHide.gt-xs>
+    <button mat-icon-button (click)="onToggleSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div class="header-logo">
+    <a routerLink="/">Encuestas Rock&amp;Vida</a>
+  </div>
+  <div class="header-nav" 
+      fxFlex 
+      fxLayout 
+      fxLayoutAlign="flex-end" 
+      fxHide.xs>
+    <ul fxLayout fxLayoutGap="10px" class="navigation-items">
+      <li *ngIf="!isAuth">
+        <a routerLink="/signup">Registrarse</a>
+      </li>
+      <li *ngIf="!isAuth">
+        <a routerLink="/login">Ingresar</a>
+      </li>
+      <li *ngIf="isAuth">
+        <a routerLink="/survey">Encuesta</a>
+      </li>
+      <li *ngIf="isAuth">
+        <a routerLink="/statistics">Estadistica</a>
+      </li>
+      <li *ngIf="isAuth">
+        <a style="cursor: pointer" (click)="onLogout()">Salir</a>
+      </li>
+    </ul>
+  </div>
+</mat-toolbar>
