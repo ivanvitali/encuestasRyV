@@ -24,10 +24,15 @@
 }
 
 mat-card {
-    width: 20rem;
+    width: 30rem;
     margin: 0 auto;
 }
 
 mat-form-field {
-    width: 18rem;
+    width: 25rem;
 }
+
+mat-form-field.mat-form-field {
+    font-size: 1.6rem;
+}
+

@@ -1,3 +1,7 @@
+form {
+    font-size: 1.6rem
+}
+
 mat-card {
     width: 80%;
     margin: 0 auto;
@@ -5,7 +9,7 @@ mat-card {
 }
 
 mat-form-field {
-    width: 250px;
+    width: 25rem;
 }
 
 .seccion-radio {
@@ -17,17 +21,15 @@ mat-form-field {
   
 .label-margin {
     font-weight: bold;
-    margin: 0 10px;
-    padding: 3px;
+    margin: 0 1rem;
+    padding: .3rem;
 }
 
 .radio-margin {
-    margin: 2px 5px;
+    margin: .2rem .5rem;
 }
 
-form {
-    /* height: 100%; */
-}
+
 
 hr {
     width: 80%

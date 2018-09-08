@@ -33,7 +33,7 @@ font-family: 'Itim', cursive;
 }
 
 .logo {
-    height: 3rem;
+    height: 3.5rem;
     animation: moveInUp 1s ease-out .75s;
     animation-fill-mode: backwards;
 }
@@ -55,9 +55,9 @@ font-family: 'Itim', cursive;
 .heading-primary-main {
     display: block;
     font-family: 'Patua One', sans-serif;
-    font-size: 3.125rem;
+    font-size: 6rem;
     font-weight: 400;
-    letter-spacing: 2.18rem;
+    letter-spacing: 3.5rem;
 
     animation: moveInLeft 1s ease-out;
 }
@@ -65,9 +65,9 @@ font-family: 'Itim', cursive;
 .heading-primary-sub {
     display: block;
     font-family: 'Itim', cursive, sans-serif;
-    font-size: 1.25rem;
+    font-size: 2rem;
     font-weight: 400;
-    letter-spacing: 3.4rem;
+    letter-spacing: 6.1rem;
     animation: moveInRight 1s ease-out;
 }
 
@@ -125,9 +125,7 @@ font-family: 'Itim', cursive;
     padding: 1.5rem;
 }
 
-mat-card {}
-
-@media (max-width: 600px) {
+@media (max-width: 599px) {
     .header {
         height: 60vh;
     
@@ -144,13 +142,13 @@ mat-card {}
     }
     
     .heading-primary-main {
-        font-size: 1.5rem;
+        font-size: 3rem;
         letter-spacing: 1rem;
     }
     
     .heading-primary-sub {
-        font-size: .8rem;
+        font-size: 1rem;
         font-weight: 400;
-        letter-spacing: 1.45rem;
+        letter-spacing: 2.3rem;
     }
 }
