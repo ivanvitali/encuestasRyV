@@ -7,15 +7,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AmChartsModule } from "@amcharts/amcharts3-angular";
 
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 // components
 import { AppComponent } from './app.component';
-import { SignupComponent } from './auth/signup/signup.component';
-import { LoginComponent } from './auth/login/login.component';
 import { SurveyComponent } from './survey/survey.component';
 import { HivSurveyComponent } from './survey/hiv-survey/hiv-survey.component';
 import { AddictionSurveyComponent } from './survey/addiction-survey/addiction-survey.component';
@@ -36,14 +33,13 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { Answer1Component } from './statistics/answer1/answer1.component';
 import { AmchartComponent } from './statistics/amchart/amchart.component';
 import { Answer2Component } from './statistics/answer2/answer2.component';
+import { AuthModule } from './auth/auth.module';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    SignupComponent,
-    LoginComponent,
     SurveyComponent,
     HivSurveyComponent,
     AddictionSurveyComponent,
@@ -66,7 +62,7 @@ import { Answer2Component } from './statistics/answer2/answer2.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AmChartsModule,
-    AngularFireAuthModule
+    AuthModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'es-LA'},
