@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.authService.login({
+      name: this.loginForm.value.name,
       email: this.loginForm.value.email,
       password: this.loginForm.value.password
     });

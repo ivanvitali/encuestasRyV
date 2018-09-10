@@ -1,7 +1,28 @@
 <section class="signup-form">
     <div class="up-line">
         <mat-card>
-            <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" #signupForm="ngForm" (ngSubmit)="onSubmit(signupForm)">
+            <form 
+                fxLayout="column" 
+                fxLayoutAlign="center center" 
+                fxLayoutGap="10px" 
+                #signupForm="ngForm" 
+                (ngSubmit)="onSubmit(signupForm)">
+                <mat-form-field>
+                    <input 
+                        type="text" 
+                        matInput 
+                        placeholder="Nombre" 
+                        ngModel 
+                        name="name"
+                        pattern="^[a-zA-Z\s]+$"
+                        minlength="3"
+                        required
+                        #nameInput="ngModel">
+                    <mat-hint>Ingrese su nombre</mat-hint>
+                    <mat-error *ngIf="nameInput.hasError('minlength')">Debe tener como minimo de 3 caracteres</mat-error>
+                    <mat-error *ngIf="nameInput.hasError('pattern')">Ingrese un nombre valido</mat-error>
+                    <mat-error *ngIf="nameInput.hasError('required')">Campo no debe quedar vacio</mat-error>
+                </mat-form-field>
                 <mat-form-field>
                     <input 
                         type="email" 
@@ -12,6 +33,7 @@
                         email
                         required
                         #emailInput="ngModel">
+                    <mat-hint>Ingrese su correo electronico</mat-hint>
                     <mat-error *ngIf="!emailInput.hasError('required')">Correo Electronico invalido</mat-error>
                     <mat-error *ngIf="emailInput.hasError('required')" >Campo no debe quedar vacio</mat-error>
                 </mat-form-field>
@@ -28,11 +50,11 @@
                     <mat-hint align="end">{{ passwordInput.value?.length }} / 6</mat-hint>
                     <mat-error *ngIf="passwordInput.value?.length < 6" >Minimo 6 caracteres</mat-error>
                 </mat-form-field>
-                <mat-form-field>
+                <!-- <mat-form-field>
                     <input matInput placeholder="Cumpleaños" [matDatepicker]="picker" ngModel name="birthday" required>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
+                </mat-form-field> -->
                 <mat-checkbox color="primary" ngModel name="agree" required>Acepto Terminos y Condiciones</mat-checkbox>
                 <button type="submit" mat-raised-button color="primary" [disabled]="signupForm.invalid" >Registrar</button>
                 <mat-spinner *ngIf="isLoading"></mat-spinner>

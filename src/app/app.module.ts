@@ -26,6 +26,7 @@ import { HivSurveyService } from './survey/hiv-survey/hiv-survey.service';
 import { Answer1Service } from './statistics/answer1/shared/answer1.service';
 import { Answer2Service } from './statistics/answer2/shared/answer2.service';
 import { UIService } from './shared/ui.service';
+import { UserService } from './shared/user.service';
 
 // environment
 import { environment } from '../environments/environment';
@@ -70,7 +71,8 @@ import { AuthModule } from './auth/auth.module';
     HivSurveyService,
     Answer1Service,
     Answer2Service,
-    UIService
+    UIService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

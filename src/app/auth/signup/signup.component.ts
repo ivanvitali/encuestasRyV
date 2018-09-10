@@ -26,7 +26,9 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(form: NgForm) {
+    let nameCapitalized = this.capitalize(form.value.name);
     this.authService.registerUser({
+      name: nameCapitalized,
       email: form.value.email,
       password: form.value.password
     });
@@ -37,5 +39,10 @@ export class SignupComponent implements OnInit, OnDestroy {
       this.loadingSubscription.unsubscribe();
     } 
   }
+
+  // Capitalize the first lettter of every word of the string
+  private capitalize(name: string){
+    return name.toLowerCase().replace( /\b./g, function(word) { return word.toUpperCase(); } );
+};
 
 }

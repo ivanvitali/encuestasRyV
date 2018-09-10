@@ -4,11 +4,13 @@ import { Subject } from 'rxjs';
 import { AngularFireAuth } from 'angularfire2/auth'
 
 import { User } from "./user.model";
-import { AuthData } from "./auth-data.moede";
+import { AuthData } from "./auth-data.model";
 import { Answer1Service } from '../statistics/answer1/shared/answer1.service';
 import { Answer2Service } from '../statistics/answer2/shared/answer2.service';
 import { MatSnackBar } from '@angular/material';
 import { UIService } from '../shared/ui.service';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { UserService } from '../shared/user.service';
 
 @Injectable()
 export class AuthService {
@@ -20,10 +22,12 @@ export class AuthService {
     constructor( 
         private router: Router,
         private afAuth: AngularFireAuth,
+        private db: AngularFirestore,
         private answer1Service: Answer1Service,
         private answer2Service: Answer2Service,
         private snackbar: MatSnackBar,
-        private uiService: UIService
+        private uiService: UIService,
+        private userService: UserService
     ) {}
 
     initAuthListener() {
@@ -50,6 +54,18 @@ export class AuthService {
         )
         .then((result) => {
             this.uiService.loadingStateChanged.next(false);
+            // Actualizar el nombre del usuario registrado
+            console.log('nombre: ', authData.name);
+            result.user.updateProfile({
+                displayName: authData.name,
+                photoURL: ""
+            })
+            .then(function() {
+                // console.log('se actualizo el perfil del usuario con exito');
+            })
+            .catch((error) => console.log(error));
+
+            this.userService.saveUser(result.user);
         })
         .catch((error) => {
             this.uiService.loadingStateChanged.next(false);
