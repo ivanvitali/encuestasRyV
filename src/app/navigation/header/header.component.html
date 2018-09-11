@@ -28,6 +28,13 @@
       <li *ngIf="isAuth">
         <a style="cursor: pointer" (click)="onLogout()">Salir</a>
       </li>
+      <li>
+        <button mat-button [matMenuTriggerFor]="menu">userName</button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>Perfil</button>
+          <button mat-menu-item>Salir</button>
+        </mat-menu>
+      </li>
     </ul>
   </div>
 </mat-toolbar>

@@ -65,7 +65,11 @@ export class AuthService {
             })
             .catch((error) => console.log(error));
 
-            this.userService.saveUser(result.user);
+            this.userService.saveUser({
+                name: authData.name,
+                email: authData.email,
+                userId: result.user.uid
+            }, result.user.uid);
         })
         .catch((error) => {
             this.uiService.loadingStateChanged.next(false);
@@ -83,6 +87,8 @@ export class AuthService {
         )
         .then((result) => {
             this.uiService.loadingStateChanged.next(false);
+            localStorage.setItem("username", result.user.displayName);
+            console.log(result.user.displayName);
         })
         .catch((error) => {
             this.uiService.loadingStateChanged.next(false);
