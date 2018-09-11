@@ -73,6 +73,18 @@ export class AuthService {
         })
         .catch((error) => {
             this.uiService.loadingStateChanged.next(false);
+            let errorCode = error.code;
+            if (errorCode == 'auth/weak-password') {
+                error.message = " La contraseña es demasiado debil.";
+            } else if(errorCode == 'auth/email-already-in-use') {
+                error.message = " Ya existe la cuenta con el mail ingresado.";
+            }
+            else if(errorCode == 'auth/invalid-email') {
+                error.message =" Debe ingresar una direccion del correo electronico valida.";
+            }
+            else {
+                error.message = " " + error.message;
+            }
             this.snackbar.open(error.message, null, {
                 duration: 3000
             });
@@ -92,6 +104,14 @@ export class AuthService {
         })
         .catch((error) => {
             this.uiService.loadingStateChanged.next(false);
+            let errorCode = error.code;
+            if (errorCode == 'auth/wrong-password') {
+                error.message = " La contraseña es invalida.";
+            } else if(errorCode == 'auth/user-not-found') {
+                error.message = " Correo electronico invalido, no hay ningun usuario registrado con este correo electronico.";
+            } else {
+                error.message = " " + error.message;
+            }
             this.snackbar.open(error.message, null, {
                 duration: 3000
             });
