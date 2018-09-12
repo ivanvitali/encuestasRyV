@@ -10,11 +10,20 @@ export class UserService {
     saveUser(user: User, uid: string) {
         // console.log('nombre del usuario: ', user.displayName);
         this.db.collection('users').doc(uid).set({
-            // name: user.displayName,
-            // email: user.email,
-            // userId: user.uid,
             ...user,
             registrationDate:  (new Date()).getTime()
         });
     }
+
+    // setUserRole( userId:string ) {
+    //     // let value: boolean = true;
+    //     // let userRole = { userId, value };
+    //     this.db
+    //         .collection('roles')
+    //         .add({
+    //             users: {
+    //                {userId} : true
+    //             }
+    //         });
+    // }
 }

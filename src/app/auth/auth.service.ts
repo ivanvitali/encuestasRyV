@@ -55,6 +55,8 @@ export class AuthService {
         .then((result) => {
             this.uiService.loadingStateChanged.next(false);
             // Actualizar el nombre del usuario registrado
+            let userId: string = result.user.uid;
+
             console.log('nombre: ', authData.name);
             result.user.updateProfile({
                 displayName: authData.name,
@@ -65,11 +67,14 @@ export class AuthService {
             })
             .catch((error) => console.log(error));
 
+            // save User data
             this.userService.saveUser({
                 name: authData.name,
                 email: authData.email,
-                userId: result.user.uid
+                userId: userId,
+                roles: { user: false }
             }, result.user.uid);
+            
         })
         .catch((error) => {
             this.uiService.loadingStateChanged.next(false);
