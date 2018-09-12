@@ -18,9 +18,13 @@ export class AuthService implements OnDestroy {
     authChange = new Subject<boolean>();
     userChange = new Subject<firebase.User>();
     authStateSubscription: Subscription;
+    userLoggedInDataSubscription: Subscription;
 
 
     private isAuthenticated: boolean = false;
+    private isUserRole: boolean = false;
+
+    //userRoleChange = new Subject<boolean>();
 
     constructor( 
         private router: Router,
@@ -40,6 +44,14 @@ export class AuthService implements OnDestroy {
                 this.authChange.next(true);
                 this.userChange.next(user);
                 this.router.navigate(['/home']);
+
+                this.userLoggedInDataSubscription = this.db.collection('users').doc(user.uid)
+                    .valueChanges()
+                    .subscribe((userData) => {
+                        //this.userRoleChange.next(userData.roles.user);
+                        this.isUserRole = userData.roles.user;
+                        console.log('user data: ', userData.roles.user );
+                    });
             } else {
                 this.answer1Service.cancelSubscriptions();
                 this.answer2Service.cancelSubscriptions();
@@ -135,7 +147,12 @@ export class AuthService implements OnDestroy {
         return this.isAuthenticated;
     }
 
+    isUser() {
+        return this.isUserRole;
+    }
+
     ngOnDestroy() {
         this.authStateSubscription.unsubscribe();
+        this.userLoggedInDataSubscription.unsubscribe();
     }
 }

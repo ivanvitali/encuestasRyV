@@ -7,19 +7,20 @@ import { SurveyComponent } from "./survey/survey.component";
 import { StatisticsComponent } from "./statistics/statistics.component";
 import { AuthGuard } from "./auth/auth.guard";
 import { HomeComponent } from "./home/home.component";
+import { UserGuard } from "./auth/user.guard";
 
 const routes: Routes = [
     { path: '', component: WelcomeComponent },
     { path: 'home', component: HomeComponent },
     { path: 'signup', component: SignupComponent },
     { path: 'login', component: LoginComponent },
-    { path: 'survey', component: SurveyComponent },
+    { path: 'survey', component: SurveyComponent, canActivate: [AuthGuard, UserGuard] },
     { path: 'statistics', component: StatisticsComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule],
-    providers: [AuthGuard]
+    providers: [AuthGuard, UserGuard]
 })
 export class AppRoutingModule {}
