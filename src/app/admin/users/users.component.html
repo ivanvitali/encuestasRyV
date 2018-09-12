@@ -14,6 +14,22 @@
     <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
     <mat-cell *matCellDef="let element">{{ element.email }} </mat-cell>
   </ng-container>
+  <ng-container matColumnDef="user">
+    <mat-header-cell *matHeaderCellDef>Usuario</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <mat-slide-toggle
+        [checked]="element.roles.user">
+      </mat-slide-toggle>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="admin">
+      <mat-header-cell *matHeaderCellDef>Administrador</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <mat-slide-toggle
+          [checked]="element.roles.admin">
+        </mat-slide-toggle>
+      </mat-cell>
+    </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>

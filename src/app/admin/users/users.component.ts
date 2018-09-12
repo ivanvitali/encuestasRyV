@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
 })
 export class UsersComponent implements OnInit, OnDestroy {
 
-  displayedColumns = ['userId', 'name', 'email'];
+  displayedColumns = ['userId', 'name', 'email','user','admin'];
   registeredUsers = new MatTableDataSource<User>();
   private registeredUsersSubscription: Subscription;
 
