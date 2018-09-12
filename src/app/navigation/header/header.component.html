@@ -29,7 +29,7 @@
         <a style="cursor: pointer" (click)="onLogout()">Salir</a>
       </li>
       <li>
-        <button mat-button [matMenuTriggerFor]="menu">userName</button>
+        <button *ngIf="isAuth && user" mat-button [matMenuTriggerFor]="menu">{{ user.displayName }}</button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item>Perfil</button>
           <button mat-menu-item>Salir</button>

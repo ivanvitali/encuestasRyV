@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { AngularFireAuth } from 'angularfire2/auth'
 
 import { User } from "./user.model";
@@ -13,9 +13,12 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { UserService } from '../shared/user.service';
 
 @Injectable()
-export class AuthService {
+export class AuthService implements OnDestroy {
     
     authChange = new Subject<boolean>();
+    userChange = new Subject<firebase.User>();
+    authStateSubscription: Subscription;
+
 
     private isAuthenticated: boolean = false;
 
@@ -31,10 +34,11 @@ export class AuthService {
     ) {}
 
     initAuthListener() {
-        this.afAuth.authState.subscribe((user) => {
+        this.authStateSubscription = this.afAuth.authState.subscribe((user) => {
             if (user) {
                 this.isAuthenticated = true;
                 this.authChange.next(true);
+                this.userChange.next(user);
                 this.router.navigate(['/home']);
             } else {
                 this.answer1Service.cancelSubscriptions();
@@ -129,5 +133,9 @@ export class AuthService {
 
     isAuth() {
         return this.isAuthenticated;
+    }
+
+    ngOnDestroy() {
+        this.authStateSubscription.unsubscribe();
     }
 }

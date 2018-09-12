@@ -13,7 +13,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @Output() sidenavToggle = new EventEmitter<void>();
 
   isAuth: boolean = false;
-  authSubscription: Subscription
+  user: firebase.User = null;
+  authSubscription: Subscription;
+  userSubscription: Subscription;
 
   constructor( private authService: AuthService) { }
 
@@ -21,6 +23,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authSubscription = this.authService.authChange.subscribe( authStatus => {
       this.isAuth = authStatus;
     });
+    this.userSubscription = this.authService.userChange.subscribe( (user) => {
+      this.user = user;
+    })
   }
 
   onToggleSidenav() {
@@ -29,6 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.authSubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
   }
 
   onLogout() {
