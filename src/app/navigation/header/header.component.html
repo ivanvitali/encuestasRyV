@@ -20,6 +20,9 @@
         <a routerLink="/login">Ingresar</a>
       </li>
       <li *ngIf="isAuth">
+        <a routerLink="/admin/users">Usuarios</a>
+      </li>
+      <li *ngIf="isAuth">
         <a routerLink="/survey">Encuesta</a>
       </li>
       <li *ngIf="isAuth">

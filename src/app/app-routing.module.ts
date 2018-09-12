@@ -8,6 +8,7 @@ import { StatisticsComponent } from "./statistics/statistics.component";
 import { AuthGuard } from "./auth/auth.guard";
 import { HomeComponent } from "./home/home.component";
 import { UserGuard } from "./auth/user.guard";
+import { UsersComponent } from "./admin/users/users.component";
 
 const routes: Routes = [
     { path: '', component: WelcomeComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
     { path: 'signup', component: SignupComponent },
     { path: 'login', component: LoginComponent },
     { path: 'survey', component: SurveyComponent, canActivate: [AuthGuard, UserGuard] },
-    { path: 'statistics', component: StatisticsComponent, canActivate: [AuthGuard] }
+    { path: 'statistics', component: StatisticsComponent, canActivate: [AuthGuard] },
+    { path: 'admin/users', component: UsersComponent }
 ];
 
 @NgModule({

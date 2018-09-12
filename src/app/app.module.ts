@@ -36,6 +36,8 @@ import { AmchartComponent } from './statistics/amchart/amchart.component';
 import { Answer2Component } from './statistics/answer2/answer2.component';
 import { AuthModule } from './auth/auth.module';
 import { HomeComponent } from './home/home.component';
+import { UsersComponent } from './admin/users/users.component';
+import { UsersService } from './admin/users/users.service';
 
 
 
@@ -52,7 +54,8 @@ import { HomeComponent } from './home/home.component';
     Answer1Component,
     AmchartComponent,
     Answer2Component,
-    HomeComponent
+    HomeComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +77,8 @@ import { HomeComponent } from './home/home.component';
     Answer1Service,
     Answer2Service,
     UIService,
-    UserService
+    UserService,
+    UsersService
   ],
   bootstrap: [AppComponent]
 })
