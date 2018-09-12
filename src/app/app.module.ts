@@ -35,6 +35,7 @@ import { Answer1Component } from './statistics/answer1/answer1.component';
 import { AmchartComponent } from './statistics/amchart/amchart.component';
 import { Answer2Component } from './statistics/answer2/answer2.component';
 import { AuthModule } from './auth/auth.module';
+import { HomeComponent } from './home/home.component';
 
 
 
@@ -50,7 +51,8 @@ import { AuthModule } from './auth/auth.module';
     StatisticsComponent,
     Answer1Component,
     AmchartComponent,
-    Answer2Component
+    Answer2Component,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

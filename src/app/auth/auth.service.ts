@@ -35,7 +35,7 @@ export class AuthService {
             if (user) {
                 this.isAuthenticated = true;
                 this.authChange.next(true);
-                this.router.navigate(['/survey']);
+                this.router.navigate(['/home']);
             } else {
                 this.answer1Service.cancelSubscriptions();
                 this.answer2Service.cancelSubscriptions();
