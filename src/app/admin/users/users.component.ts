@@ -34,6 +34,14 @@ export class UsersComponent implements OnInit, OnDestroy {
     this.registeredUsers.filter = filterValue.trim().toLowerCase();
   }
 
+  changeAdminRol(userId: string, isAdmin: boolean, isUser: boolean): void {
+    this.usersService.setAdminRole(userId, isAdmin, isUser);
+  }
+
+  changeUserRol(userId: string, isAdmin: boolean, isUser: boolean): void {
+    this.usersService.setUserRole(userId, isAdmin, isUser);
+  }
+
   ngOnDestroy() {
     this.registeredUsersSubscription.unsubscribe();
   }

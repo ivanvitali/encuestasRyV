@@ -18,7 +18,8 @@
     <mat-header-cell *matHeaderCellDef>Usuario</mat-header-cell>
     <mat-cell *matCellDef="let element">
       <mat-slide-toggle
-        [checked]="element.roles.user">
+        [checked]="element.roles.user"
+        (click)="changeUserRol(element.userId, element.roles.admin, element.roles.user)">
       </mat-slide-toggle>
     </mat-cell>
   </ng-container>
@@ -26,7 +27,8 @@
       <mat-header-cell *matHeaderCellDef>Administrador</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <mat-slide-toggle
-          [checked]="element.roles.admin">
+          [checked]="element.roles.admin"
+          (click)="changeAdminRol(element.userId, element.roles.admin, element.roles.user)">
         </mat-slide-toggle>
       </mat-cell>
     </ng-container>

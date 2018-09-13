@@ -20,6 +20,26 @@ export class UsersService implements OnDestroy {
         });
     }
 
+    setAdminRole(userId: string, isAdmin: boolean, isUser: boolean): void {
+        this.db
+            .collection('users')
+            .doc(userId)
+            .update({roles: {
+                admin: !isAdmin,
+                user: isUser
+            }});
+    }
+
+    setUserRole(userId: string, isAdmin: boolean, isUser: boolean): void {
+        this.db
+            .collection('users')
+            .doc(userId)
+            .update({roles: {
+                admin: isAdmin,
+                user: !isUser
+            }});
+    }
+
     ngOnDestroy() {
         this.registeredUsersSubscription.unsubscribe();
     }

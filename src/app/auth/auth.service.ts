@@ -86,7 +86,9 @@ export class AuthService implements OnDestroy {
                 name: authData.name,
                 email: authData.email,
                 userId: userId,
-                roles: { user: false }
+                roles: {    user: false,
+                            admin: false 
+                        }
             }, result.user.uid);
             
         })

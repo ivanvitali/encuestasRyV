@@ -5,3 +5,7 @@ mat-form-field {
 mat-header-cell {
     font-size: 1.6rem;
 }
+
+mat-slide-toggle {
+    margin-left: 1.6rem;
+}
