@@ -2,6 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { AngularFireAuth } from 'angularfire2/auth'
+import { map } from 'rxjs/operators';
 
 import { User } from "./user.model";
 import { AuthData } from "./auth-data.model";
@@ -15,14 +16,25 @@ import { UserService } from '../shared/user.service';
 @Injectable()
 export class AuthService implements OnDestroy {
     
-    authChange = new Subject<boolean>();
-    userChange = new Subject<firebase.User>();
+    authChanged = new Subject<boolean>();
     authStateSubscription: Subscription;
-    userLoggedInUserRoleSubscription: Subscription;
+
+    userRoleChanged = new Subject<boolean>();
+    userRoleSubscription: Subscription;
+
+    //userRoleChange = new Subject<firebase.User>();
+    //adminRoleChange = new Subject<firebase.User>();
+    
+    adminRoleChanged = new Subject<boolean>();
+    adminRoleSubscription: Subscription;
+
+    userLoggenInChanged = new Subject<firebase.User>();
+    
 
 
     private isAuthenticated: boolean = false;
     private isUserRole: boolean = false;
+    private isAdminRole: boolean = false;
 
     //userRoleChange = new Subject<boolean>();
 
@@ -38,22 +50,35 @@ export class AuthService implements OnDestroy {
     ) {}
 
     initAuthListener() {
-        this.authStateSubscription = this.afAuth.authState.subscribe((user) => {
+        this.authStateSubscription = this.afAuth.authState.subscribe(( user: firebase.User ) => {
             if (user) {
                 this.isAuthenticated = true;
-                this.authChange.next(true);
-                this.userChange.next(user);
-                this.router.navigate(['/home']);
+                this.authChanged.next(true);
+                this.userLoggenInChanged.next(user);
 
-                this.userLoggedInUserRoleSubscription = this.db.collection('users').doc(user.uid)
+                this.userRoleSubscription = this.db.collection('users').doc(user.uid)
+                    .snapshotChanges()
+                    .pipe(map((docSnapShot) => {
+                        return docSnapShot.payload.data();
+                    }))
+                    .subscribe((user: User) => {
+                        this.isUserRole = user.roles.user;
+                        this.userRoleChanged.next(user.roles.user);
+                    });
+
+                this.adminRoleSubscription = this.db.collection('users').doc(user.uid)
                     .valueChanges()
                     .subscribe((userData: User) => {
-                        this.isUserRole = userData.roles.user;
+                        this.adminRoleChanged.next(userData.roles.admin);
+                        this.isAdminRole = userData.roles.admin;
                     });
+
+                this.router.navigate(['/home']);
             } else {
                 this.answer1Service.cancelSubscriptions();
                 this.answer2Service.cancelSubscriptions();
-                this.authChange.next(false);
+                this.authChanged.next(false);
+                this.userLoggenInChanged.next(null);
                 this.router.navigate(['/login']);
                 this.isAuthenticated = false;
             }
@@ -151,8 +176,13 @@ export class AuthService implements OnDestroy {
         return this.isUserRole;
     }
 
+    isAdmin() {
+        return this.isAdminRole;
+    }
+
     ngOnDestroy() {
         this.authStateSubscription.unsubscribe();
-        this.userLoggedInUserRoleSubscription.unsubscribe();
+        this.userRoleSubscription.unsubscribe();
+        this.adminRoleSubscription.unsubscribe();
     }
 }

@@ -18,7 +18,7 @@ export class SidenavListComponent implements OnInit {
   constructor( private authService: AuthService) { }
 
   ngOnInit() {
-    this.authSubscription = this.authService.authChange.subscribe( authStatus => {
+    this.authSubscription = this.authService.authChanged.subscribe( authStatus => {
       this.isAuth = authStatus;
     });
   }

@@ -19,10 +19,10 @@
       <li *ngIf="!isAuth">
         <a routerLink="/login">Ingresar</a>
       </li>
-      <li *ngIf="isAuth">
+      <li *ngIf="isAuth && isAdmin">
         <a routerLink="/admin/users">Usuarios</a>
       </li>
-      <li *ngIf="isAuth">
+      <li *ngIf="isAuth && (isUser || isAdmin)">
         <a routerLink="/survey">Encuesta</a>
       </li>
       <li *ngIf="isAuth">
@@ -32,7 +32,7 @@
         <a style="cursor: pointer" (click)="onLogout()">Salir</a>
       </li>
       <li>
-        <button *ngIf="isAuth && user" mat-button [matMenuTriggerFor]="menu">{{ user.displayName }}</button>
+        <button *ngIf="isAuth && userLoggedIn" mat-button [matMenuTriggerFor]="menu">{{ userLoggedIn.displayName }}</button>
         <mat-menu #menu="matMenu">
           <button mat-menu-item>Perfil</button>
           <button mat-menu-item>Salir</button>

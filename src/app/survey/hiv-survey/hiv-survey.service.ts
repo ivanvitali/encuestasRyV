@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable, Subject } from 'rxjs';
-import { map, count } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Country } from './country.model';
 import { HivSurvey } from './hiv-survey.model';
 import { State } from './state.model';

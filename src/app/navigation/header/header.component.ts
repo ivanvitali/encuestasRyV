@@ -1,7 +1,8 @@
 import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 
 import { AuthService } from '../../auth/auth.service';
+import { User } from '../../auth/user.model';
 
 @Component({
   selector: 'app-header',
@@ -13,19 +14,30 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @Output() sidenavToggle = new EventEmitter<void>();
 
   isAuth: boolean = false;
-  user: firebase.User = null;
+  isUser: boolean = false;
+  isAdmin: boolean = false;
+
+  userLoggedIn: firebase.User = null;
   authSubscription: Subscription;
-  userSubscription: Subscription;
+  userRoleSubscription: Subscription;
+  adminRoleSubscription: Subscription;
+  userLoggedInSubscription: Subscription;
 
   constructor( private authService: AuthService) { }
 
   ngOnInit() {
-    this.authSubscription = this.authService.authChange.subscribe( authStatus => {
+    this.authSubscription = this.authService.authChanged.subscribe( authStatus => {
       this.isAuth = authStatus;
     });
-    this.userSubscription = this.authService.userChange.subscribe( (user) => {
-      this.user = user;
-    })
+    this.userRoleSubscription = this.authService.userRoleChanged.subscribe(( isUser: boolean) =>{
+      this.isUser = isUser;
+    });
+    this.adminRoleSubscription = this.authService.adminRoleChanged.subscribe(( isAdmin: boolean) =>{
+      this.isAdmin = isAdmin;
+    });
+    this.userLoggedInSubscription = this.authService.userLoggenInChanged.subscribe((userLoggedIn: firebase.User) => {
+      this.userLoggedIn = userLoggedIn;
+    });
   }
 
   onToggleSidenav() {
@@ -34,7 +46,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.authSubscription.unsubscribe();
-    this.userSubscription.unsubscribe();
+    this.userRoleSubscription.unsubscribe();
+    this.adminRoleSubscription.unsubscribe();
+    this.userLoggedInSubscription.unsubscribe();
   }
 
   onLogout() {
